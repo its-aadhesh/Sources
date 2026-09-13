@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useStore } from "@/components/store-provider";
 import {
+  collections,
   formatMoney,
   getMOQ,
   getProduct,
@@ -165,6 +166,15 @@ export function Catalog({
     return `/shop${params.size ? `?${params.toString()}` : ""}`;
   }
 
+  function hrefForClass(value: string) {
+    const params = new URLSearchParams();
+    if (audience !== "All") params.set("audience", audience);
+    if (query) params.set("q", query);
+    if (sort !== "featured") params.set("sort", sort);
+    if (value) params.set("collection", value);
+    return `/shop${params.size ? `?${params.toString()}` : ""}`;
+  }
+
   return (
     <>
       <div className="mode-banner" role="status">
@@ -181,7 +191,7 @@ export function Catalog({
       </div>
 
       <nav className="category-tabs" aria-label="Shop by audience">
-        {["All", "Men", "Women", "Children"].map((item) => (
+        {["All", "Men", "Women", "Children", "Sportswear"].map((item) => (
           <Link
             href={hrefFor(item)}
             key={item}
@@ -192,6 +202,27 @@ export function Catalog({
           </Link>
         ))}
       </nav>
+
+      <div className="class-filter" aria-label="Shop by class">
+        <span className="class-filter-label">Class:</span>
+        <Link
+          href={hrefForClass("")}
+          className={!collection ? "active" : ""}
+          aria-current={!collection ? "page" : undefined}
+        >
+          All
+        </Link>
+        {["Ultem", "Unbreakable", "Fiber", "Metal", "Coolers"].map((key) => (
+          <Link
+            key={key}
+            href={hrefForClass(key)}
+            className={collection === key ? "active" : ""}
+            aria-current={collection === key ? "page" : undefined}
+          >
+            {collections.find((c) => c.key === key)?.title ?? key}
+          </Link>
+        ))}
+      </div>
 
       <form action="/shop" method="get" className="catalog-controls">
         {audience !== "All" && <input type="hidden" name="audience" value={audience} />}

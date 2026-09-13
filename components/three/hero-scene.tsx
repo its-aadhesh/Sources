@@ -1,16 +1,9 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { ContactShadows, useGLTF } from "@react-three/drei";
 import { Suspense, useEffect, useRef } from "react";
-import type { MotionValue } from "framer-motion";
-import type { Group } from "three";
 
-/**
- * The signature eyewear model (glasses_3d_model.glb) in a scroll-driven stage.
- * Rotation is driven imperatively from a MotionValue so we never trigger React
- * re-renders per frame.
- */
 function Model({ onReady }: { onReady: () => void }) {
   const gltf = useGLTF("/models/glasses-3d-model.glb");
   const fired = useRef(false);
@@ -25,76 +18,39 @@ function Model({ onReady }: { onReady: () => void }) {
   return <primitive object={gltf.scene} />;
 }
 
-function Scene({
-  progress,
-  reducedMotion,
-  onReady
-}: {
-  progress: MotionValue<number>;
-  reducedMotion: boolean;
-  onReady: () => void;
-}) {
-  const group = useRef<Group>(null);
-
-  useFrame(() => {
-    const g = group.current;
-    if (!g) return;
-
-    const p = reducedMotion ? 0 : progress.get();
-
-    // Front three-quarter at the start → rotate toward the temple as the user
-    // scrolls, revealing the hinge and temple detail.
-    g.rotation.y = 0.45 + p * 1.05;
-    g.rotation.x = -0.08 + p * 0.1;
-    g.position.x = 0.05 * p;
-    g.position.z = -0.2 * p;
-    g.scale.setScalar(11 - 1.3 * p);
-  });
-
+/**
+ * Static studio render of the signature eyewear model. No scroll choreography —
+ * a single, carefully lit pose centered in the hero.
+ */
+export default function HeroScene({ onReady }: { onReady: () => void }) {
   return (
-    <>
-      {/* Studio lighting: broad key, soft fill, restrained rim */}
-      <ambientLight intensity={1.0} />
-      <directionalLight position={[6, 7, 7]} intensity={2.2} />
-      <directionalLight position={[-6, 3, -3]} intensity={0.7} />
-      <directionalLight position={[0, -4, 4]} intensity={0.4} />
-      <pointLight position={[0, 3, -2]} intensity={0.5} />
+    <Canvas
+      dpr={[1, 1.5]}
+      camera={{ position: [0, 0.15, 4.8], fov: 34 }}
+      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+      style={{ background: "transparent" }}
+    >
+      {/* Broad key + rim lights so the dark frame reads against the blue field */}
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[5, 7, 6]} intensity={2.4} />
+      <directionalLight position={[-6, 3, -3]} intensity={1.1} color="#cfe0ff" />
+      <directionalLight position={[0, -3, 5]} intensity={0.5} />
+      <pointLight position={[0, 4, -4]} intensity={0.6} color="#eaf1ff" />
 
-      <group ref={group} position={[0, -0.15, 0]} rotation={[0, 0.45, 0]} scale={11}>
+      <group position={[0, -0.1, 0]} rotation={[0.02, 0.42, -0.02]} scale={13}>
         <Suspense fallback={null}>
           <Model onReady={onReady} />
         </Suspense>
       </group>
 
       <ContactShadows
-        position={[0, -1.9, 0]}
-        opacity={0.35}
-        scale={13}
-        blur={2.6}
+        position={[0, -2.2, 0]}
+        opacity={0.42}
+        scale={15}
+        blur={2.8}
         far={4}
-        color="#3a2430"
+        color="#0a1f5c"
       />
-    </>
-  );
-}
-
-export default function HeroScene({
-  progress,
-  reducedMotion,
-  onReady
-}: {
-  progress: MotionValue<number>;
-  reducedMotion: boolean;
-  onReady: () => void;
-}) {
-  return (
-    <Canvas
-      dpr={[1, 1.5]}
-      camera={{ position: [0, 0.3, 4.6], fov: 36 }}
-      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-      style={{ background: "transparent" }}
-    >
-      <Scene progress={progress} reducedMotion={reducedMotion} onReady={onReady} />
     </Canvas>
   );
 }

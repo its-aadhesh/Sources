@@ -1,6 +1,6 @@
-export type Audience = "Men" | "Women" | "Children";
+export type Audience = "Men" | "Women" | "Children" | "Sportswear";
 export type ProductType = "Eyeglasses" | "Sunglasses" | "Sports";
-export type Collection = "Metal" | "Fiber" | "Polarised" | "Ultem";
+export type Collection = "Ultem" | "Unbreakable" | "Fiber" | "Metal" | "Coolers";
 export type Role = "customer" | "business";
 
 export type Product = {
@@ -26,15 +26,15 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  /* ————— MEN · EYEGLASSES ————— */
+  /* ————— MEN ————— */
   {
     id: "SO-001",
-    slug: "deep-navy-acetate",
-    name: "Deep Navy Acetate",
+    slug: "deep-navy",
+    name: "Deep Navy",
     type: "Eyeglasses",
     audience: ["Men"],
-    collection: "Fiber",
-    material: "Acetate",
+    collection: "Ultem",
+    material: "Premium ULTEM",
     colorName: "Deep navy",
     image: "/images/navy-hero.png",
     pricePaise: 499000,
@@ -42,7 +42,7 @@ export const products: Product[] = [
     limit: 5,
     dimensions: "51 · 20 · 145 mm",
     description:
-      "A rich navy acetate frame with a softly squared silhouette. Dark enough to anchor, coloured enough to feel considered.",
+      "A rich navy frame in premium simulated ULTEM. Dark enough to anchor, tough enough for every day.",
     tag: "Signature",
     rating: 4.8,
     reviews: 54,
@@ -54,8 +54,8 @@ export const products: Product[] = [
     name: "Matte Black Rectangular",
     type: "Eyeglasses",
     audience: ["Men"],
-    collection: "Fiber",
-    material: "Acetate",
+    collection: "Ultem",
+    material: "Premium ULTEM",
     colorName: "Matte black",
     image: "/images/matte-black-rect.png",
     pricePaise: 349000,
@@ -118,33 +118,13 @@ export const products: Product[] = [
     description:
       "A finer, lighter wire aviator. Minimal metal, maximum comfort."
   },
-
-  /* ————— MEN · SUNGLASSES ————— */
   {
     id: "SO-006",
-    slug: "blue-sport-wrap",
-    name: "Blue Sport Wrap",
-    type: "Sports",
-    audience: ["Men"],
-    collection: "Polarised",
-    material: "Polymer",
-    colorName: "Blue",
-    image: "/images/blue-sport-wrap.png",
-    pricePaise: 549000,
-    stock: 34,
-    limit: 5,
-    dimensions: "56 · 20 · 150 mm",
-    description:
-      "A wrap-around sports frame with a polarised lens. Built for outdoor days and active use.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-007",
     slug: "matte-black-square",
     name: "Matte Black Square",
     type: "Sunglasses",
     audience: ["Men"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Acetate",
     colorName: "Matte black",
     image: "/images/matte-black-square.png",
@@ -157,7 +137,7 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-008",
+    id: "SO-007",
     slug: "classic-gold-aviator",
     name: "Classic Gold Aviator",
     type: "Sunglasses",
@@ -174,7 +154,7 @@ export const products: Product[] = [
       "The classic aviator in a warm gold finish. A timeless shape that never really goes out of style."
   },
   {
-    id: "SO-009",
+    id: "SO-008",
     slug: "silver-metal-clubmaster",
     name: "Silver Metal Clubmaster",
     type: "Sunglasses",
@@ -195,7 +175,7 @@ export const products: Product[] = [
     featured: true
   },
   {
-    id: "SO-010",
+    id: "SO-009",
     slug: "silver-round",
     name: "Silver Round",
     type: "Sunglasses",
@@ -212,15 +192,15 @@ export const products: Product[] = [
       "A simple round metal frame with a sun lens. An easy, entry-level choice that still looks deliberate."
   },
 
-  /* ————— WOMEN · EYEGLASSES ————— */
+  /* ————— WOMEN ————— */
   {
-    id: "SO-011",
+    id: "SO-010",
     slug: "matte-black-bold",
     name: "Matte Black Bold",
     type: "Eyeglasses",
     audience: ["Women"],
-    collection: "Fiber",
-    material: "Acetate",
+    collection: "Ultem",
+    material: "Premium ULTEM",
     colorName: "Matte black",
     image: "/images/prism-01.png",
     pricePaise: 499000,
@@ -228,14 +208,14 @@ export const products: Product[] = [
     limit: 5,
     dimensions: "51 · 20 · 145 mm",
     description:
-      "A bold, softly squared acetate frame in matte black. Substantial edges and an everyday presence.",
+      "A bold, softly squared frame in matte black. Substantial edges and an everyday presence.",
     tag: "Signature",
     rating: 4.7,
     reviews: 42,
     featured: true
   },
   {
-    id: "SO-012",
+    id: "SO-011",
     slug: "tortoise-round",
     name: "Tortoise Shell Round",
     type: "Eyeglasses",
@@ -252,7 +232,7 @@ export const products: Product[] = [
       "A rounded lens shape in classic tortoise. Soft, expressive, and comfortable for long wear."
   },
   {
-    id: "SO-013",
+    id: "SO-012",
     slug: "champagne-square",
     name: "Translucent Champagne Square",
     type: "Eyeglasses",
@@ -267,6 +247,24 @@ export const products: Product[] = [
     dimensions: "50 · 19 · 140 mm",
     description:
       "A translucent champagne frame with softened corners. Light in hand, understated on the face."
+  },
+  {
+    id: "SO-013",
+    slug: "polished-teal-cateye",
+    name: "Polished Teal Cat-Eye",
+    type: "Eyeglasses",
+    audience: ["Women"],
+    collection: "Fiber",
+    material: "Acetate",
+    colorName: "Teal",
+    image: "/images/teal-cateye.png",
+    pricePaise: 429000,
+    stock: 36,
+    limit: 5,
+    dimensions: "52 · 18 · 140 mm",
+    description:
+      "A polished teal cat-eye with a lifted corner. A little expression, still entirely wearable.",
+    featured: true
   },
   {
     id: "SO-014",
@@ -288,31 +286,11 @@ export const products: Product[] = [
   },
   {
     id: "SO-015",
-    slug: "polished-teal-cateye",
-    name: "Polished Teal Cat-Eye",
-    type: "Eyeglasses",
-    audience: ["Women"],
-    collection: "Fiber",
-    material: "Acetate",
-    colorName: "Teal",
-    image: "/images/teal-cateye.png",
-    pricePaise: 429000,
-    stock: 36,
-    limit: 5,
-    dimensions: "52 · 18 · 140 mm",
-    description:
-      "A polished teal cat-eye with a lifted corner. A little expression, still entirely wearable.",
-    featured: true
-  },
-
-  /* ————— WOMEN · SUNGLASSES ————— */
-  {
-    id: "SO-016",
     slug: "milky-amber-cateye",
     name: "Milky Amber Cat-Eye",
     type: "Sunglasses",
     audience: ["Women"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Acetate",
     colorName: "Milky amber",
     image: "/images/amber-cateye.png",
@@ -325,12 +303,12 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-017",
+    id: "SO-016",
     slug: "polished-black-rectangle",
     name: "Polished Black Rectangle",
     type: "Sunglasses",
     audience: ["Women"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Acetate",
     colorName: "Polished black",
     image: "/images/polished-black-rect.png",
@@ -343,7 +321,7 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-018",
+    id: "SO-017",
     slug: "rose-gold-geometric",
     name: "Rose Gold Geometric",
     type: "Sunglasses",
@@ -360,12 +338,12 @@ export const products: Product[] = [
       "A geometric metal frame in rose gold. Clean angles and a softer metallic tone."
   },
   {
-    id: "SO-019",
+    id: "SO-018",
     slug: "tortoise-oversized-round",
     name: "Tortoise Oversized Round",
     type: "Sunglasses",
     audience: ["Women"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Acetate",
     colorName: "Tortoise",
     image: "/images/tortoise-70s.png",
@@ -378,12 +356,12 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-020",
+    id: "SO-019",
     slug: "teal-rimless-shield",
     name: "Translucent Teal Shield",
     type: "Sunglasses",
     audience: ["Women"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Acetate",
     colorName: "Translucent teal",
     image: "/images/teal-shield.png",
@@ -396,14 +374,14 @@ export const products: Product[] = [
     tag: "Polarised"
   },
 
-  /* ————— CHILDREN · EYEGLASSES (ULTEM / flexible) ————— */
+  /* ————— CHILDREN ————— */
   {
-    id: "SO-021",
+    id: "SO-020",
     slug: "flexible-blue-square",
     name: "Flexible Blue Square",
     type: "Eyeglasses",
     audience: ["Children"],
-    collection: "Ultem",
+    collection: "Unbreakable",
     material: "Flexible polymer",
     colorName: "Transparent blue",
     image: "/images/kid-blue-square.png",
@@ -417,12 +395,12 @@ export const products: Product[] = [
     featured: true
   },
   {
-    id: "SO-022",
+    id: "SO-021",
     slug: "kids-round-flex",
     name: "Kids Round Flex",
     type: "Eyeglasses",
     audience: ["Children"],
-    collection: "Ultem",
+    collection: "Unbreakable",
     material: "Flexible polymer",
     colorName: "Multi",
     image: "/images/kid-round.png",
@@ -435,12 +413,12 @@ export const products: Product[] = [
     tag: "Flexible"
   },
   {
-    id: "SO-023",
+    id: "SO-022",
     slug: "clear-glitter-pink",
     name: "Clear Glitter Pink",
     type: "Eyeglasses",
     audience: ["Children"],
-    collection: "Ultem",
+    collection: "Unbreakable",
     material: "Flexible polymer",
     colorName: "Clear pink glitter",
     image: "/images/clear-pink.png",
@@ -449,16 +427,16 @@ export const products: Product[] = [
     limit: 5,
     dimensions: "45 · 16 · 125 mm",
     description:
-      "A clear acetate frame with a soft pink glitter. Playful detail without overwhelming the shape.",
+      "A clear frame with a soft pink glitter. Playful detail without overwhelming the shape.",
     tag: "Flexible"
   },
   {
-    id: "SO-024",
+    id: "SO-023",
     slug: "matte-purple-round",
     name: "Matte Purple Round",
     type: "Eyeglasses",
     audience: ["Children"],
-    collection: "Ultem",
+    collection: "Unbreakable",
     material: "Flexible polymer",
     colorName: "Matte purple",
     image: "/images/purple-round.png",
@@ -471,12 +449,12 @@ export const products: Product[] = [
     tag: "Flexible"
   },
   {
-    id: "SO-025",
+    id: "SO-024",
     slug: "teal-lime-two-tone",
     name: "Teal & Lime Two-Tone",
     type: "Eyeglasses",
     audience: ["Children"],
-    collection: "Ultem",
+    collection: "Unbreakable",
     material: "Flexible polymer",
     colorName: "Teal / lime",
     image: "/images/teal-lime-square.png",
@@ -488,15 +466,13 @@ export const products: Product[] = [
       "A two-tone teal and lime square for kids who like a little colour. Flexible, light, and fun.",
     tag: "Flexible"
   },
-
-  /* ————— CHILDREN · SUNGLASSES ————— */
   {
-    id: "SO-026",
+    id: "SO-025",
     slug: "clear-gold-glitter-cateye",
     name: "Clear Gold Glitter Cat-Eye",
     type: "Sunglasses",
     audience: ["Children"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Clear gold glitter",
     image: "/images/gold-cateye.png",
@@ -509,30 +485,12 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-027",
-    slug: "neon-lime-sports-wrap",
-    name: "Neon Lime Sports Wrap",
-    type: "Sports",
-    audience: ["Children"],
-    collection: "Polarised",
-    material: "Polymer",
-    colorName: "Neon lime",
-    image: "/images/neon-wrap.png",
-    pricePaise: 189000,
-    stock: 40,
-    limit: 5,
-    dimensions: "44 · 16 · 122 mm",
-    description:
-      "A high-energy sports wrap in neon lime with a polarised shield lens. Impossible to miss.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-028",
+    id: "SO-026",
     slug: "sky-blue-wayfarer",
     name: "Sky Blue Wayfarer",
     type: "Sunglasses",
     audience: ["Children"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Sky blue",
     image: "/images/sky-blue-wayfarer.png",
@@ -545,12 +503,12 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-029",
+    id: "SO-027",
     slug: "orange-round",
     name: "Orange Round",
     type: "Sunglasses",
     audience: ["Children"],
-    collection: "Polarised",
+    collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Orange",
     image: "/images/orange-round.png",
@@ -563,7 +521,7 @@ export const products: Product[] = [
     tag: "Polarised"
   },
   {
-    id: "SO-030",
+    id: "SO-028",
     slug: "silver-metal-aviator",
     name: "Silver Metal Aviator",
     type: "Sunglasses",
@@ -579,20 +537,59 @@ export const products: Product[] = [
     description:
       "A cool silver aviator sized for younger faces. Light, durable, and easy to pair with anything."
   },
+
+  /* ————— SPORTSWEAR ————— */
+  {
+    id: "SO-029",
+    slug: "blue-sport-wrap",
+    name: "Blue Sport Wrap",
+    type: "Sports",
+    audience: ["Sportswear"],
+    collection: "Coolers",
+    material: "Polymer",
+    colorName: "Blue",
+    image: "/images/blue-sport-wrap.png",
+    pricePaise: 549000,
+    stock: 34,
+    limit: 5,
+    dimensions: "56 · 20 · 150 mm",
+    description:
+      "A wrap-around sports frame with a polarised lens. Built for outdoor days and active use.",
+    tag: "Polarised",
+    featured: true
+  },
+  {
+    id: "SO-030",
+    slug: "neon-lime-sports-wrap",
+    name: "Neon Lime Sports Wrap",
+    type: "Sports",
+    audience: ["Sportswear"],
+    collection: "Coolers",
+    material: "Polymer",
+    colorName: "Neon lime",
+    image: "/images/neon-wrap.png",
+    pricePaise: 479000,
+    stock: 40,
+    limit: 5,
+    dimensions: "55 · 20 · 148 mm",
+    description:
+      "A high-energy sports wrap in neon lime with a polarised shield lens. Impossible to miss.",
+    tag: "Polarised"
+  },
   {
     id: "SO-031",
     slug: "red-black-sports-goggle",
     name: "Red & Black Sports Goggle",
     type: "Sports",
-    audience: ["Children"],
-    collection: "Polarised",
+    audience: ["Sportswear"],
+    collection: "Coolers",
     material: "Polymer",
     colorName: "Red / black",
     image: "/images/sports-goggle.png",
-    pricePaise: 199000,
+    pricePaise: 499000,
     stock: 36,
     limit: 5,
-    dimensions: "44 · 16 · 124 mm",
+    dimensions: "55 · 20 · 148 mm",
     description:
       "A wrap-around sports goggle with a polarised lens. Built for outdoor days and active use.",
     tag: "Polarised"
@@ -636,30 +633,32 @@ export function getShipping(subtotalPaise: number) {
   return 9900;
 }
 
+/** The five merchandising "classes" shown across Men / Women / Children / Sportswear. */
 export const collections: { key: Collection; title: string; blurb: string }[] = [
   {
     key: "Ultem",
-    title: "Premium ULTEM Frames",
-    blurb:
-      "Flexible, impact-resistant frames built from simulated ULTEM. Tough enough for daily wear and active days."
+    title: "Premium ULTEM",
+    blurb: "Flexible, impact-resistant frames in simulated ULTEM. Tough enough for daily wear."
   },
   {
-    key: "Polarised",
-    title: "Polarised Coolers",
-    blurb:
-      "Sun-ready frames with polarised lenses. Sharper, calmer vision outdoors without the glare."
+    key: "Unbreakable",
+    title: "Unbreakable",
+    blurb: "Forgiving, flexible frames built to bend and bounce back. Ideal for kids and active days."
   },
   {
     key: "Fiber",
-    title: "Fiber Frames",
-    blurb:
-      "Acetate and polymer frames in everyday shapes. Colour, finish, and comfort across the range."
+    title: "Fiber",
+    blurb: "Acetate and polymer frames in everyday shapes. Colour, finish, and all-day comfort."
   },
   {
     key: "Metal",
-    title: "Metal Frames",
-    blurb:
-      "Lightweight metal frames in gold, silver, and rose tones. Slim lines and precise detailing."
+    title: "Metal",
+    blurb: "Lightweight metal frames in gold, silver, and rose tones. Slim lines, precise detailing."
+  },
+  {
+    key: "Coolers",
+    title: "Coolers",
+    blurb: "Sun-ready frames with polarised lenses. Sharper, calmer vision outdoors without the glare."
   }
 ];
 

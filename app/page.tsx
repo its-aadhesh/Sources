@@ -3,7 +3,22 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Hero from "@/components/hero";
 import { ProductGrid } from "@/components/commerce";
-import { collections, products, productsByCollection } from "@/lib/catalog";
+import { collections, products } from "@/lib/catalog";
+
+const audiences = [
+  { title: "Men", caption: "Bold, precise, everyday.", image: "/images/navy-hero.png" },
+  { title: "Women", caption: "A little expression.", image: "/images/teal-cateye.png" },
+  { title: "Children", caption: "Flexible, forgiving frames.", image: "/images/teal-lime-square.png" },
+  { title: "Sportswear", caption: "Built for active days.", image: "/images/blue-sport-wrap.png" }
+];
+
+const classIcons: Record<string, string> = {
+  Ultem: "◆",
+  Unbreakable: "●",
+  Fiber: "▲",
+  Metal: "■",
+  Coolers: "◐"
+};
 
 export default function HomePage() {
   const featured = products.filter((p) => p.featured).slice(0, 4);
@@ -12,7 +27,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* ————— Shop for Men / Women / Children ————— */}
+      {/* ————— Shop for Men / Women / Children / Sportswear ————— */}
       <section
         className="category-section"
         id="shop-categories"
@@ -25,25 +40,50 @@ export default function HomePage() {
           <p className="muted">Everyday frames for every head in the house.</p>
         </div>
 
-        <div className="category-grid">
-          {[
-            { title: "Men", caption: "Bold, precise, everyday.", image: "/images/navy-hero.png" },
-            { title: "Women", caption: "A little expression.", image: "/images/teal-cateye.png" },
-            { title: "Children", caption: "Flexible, forgiving frames.", image: "/images/teal-lime-square.png" }
-          ].map((c) => (
+        <div className="category-grid category-grid-4">
+          {audiences.map((c) => (
             <Link
               key={c.title}
               href={`/shop?audience=${c.title}`}
               className="category-card"
             >
               <div className="category-card-img">
-                <Image src={c.image} alt="" fill sizes="33vw" />
+                <Image src={c.image} alt="" fill sizes="25vw" />
               </div>
               <div className="category-card-foot">
                 <span>{c.title}</span>
                 <ArrowUpRight size={20} aria-hidden="true" />
               </div>
               <p>{c.caption}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ————— Shop by class ————— */}
+      <section className="class-section" aria-labelledby="class-title">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">EXPLORE BY CLASS</p>
+            <h2 id="class-title">Pick your material.</h2>
+          </div>
+        </div>
+
+        <div className="class-grid">
+          {collections.map((col) => (
+            <Link
+              key={col.key}
+              href={`/shop?collection=${col.key}`}
+              className="class-card"
+            >
+              <span className="class-mark" aria-hidden="true">
+                {classIcons[col.key]}
+              </span>
+              <div>
+                <h3>{col.title}</h3>
+                <p>{col.blurb}</p>
+              </div>
+              <ArrowUpRight size={20} aria-hidden="true" />
             </Link>
           ))}
         </div>
@@ -63,34 +103,6 @@ export default function HomePage() {
         <ProductGrid items={featured} />
       </section>
 
-      {/* ————— Collection bands ————— */}
-      {collections.map((col, i) => {
-        const items = productsByCollection(col.key);
-        return (
-          <section
-            key={col.key}
-            className={`collection-section ${i % 2 ? "band-alt" : ""}`}
-            aria-labelledby={`col-${col.key}`}
-          >
-            <div className="collection-head">
-              <div>
-                <p className="eyebrow">{String(i + 1).padStart(2, "0")}</p>
-                <h2 id={`col-${col.key}`}>{col.title}</h2>
-              </div>
-              <p className="muted">{col.blurb}</p>
-              <Link
-                href={`/shop?collection=${col.key}`}
-                className="button button-secondary"
-              >
-                Shop {col.title.split(" ")[0].toLowerCase()}{" "}
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
-            </div>
-            <ProductGrid items={items} />
-          </section>
-        );
-      })}
-
       {/* ————— Closing ————— */}
       <section className="closing">
         <div>
@@ -100,7 +112,7 @@ export default function HomePage() {
             frame.
           </p>
         </div>
-        <Link href="/account" className="button button-primary">
+        <Link href="/account" className="button button-light">
           Business account <ArrowUpRight size={17} aria-hidden="true" />
         </Link>
       </section>

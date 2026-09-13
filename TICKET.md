@@ -26,8 +26,12 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 | 16 | Add 5 new products (Deep Navy, Teal Cat-Eye, Two-Tone, Blue Sport Wrap, Matte Black Square) | ✅ |
 | 17 | Remove "Prism 01" link from hero (→ Deep Navy Acetate as hero frame) | ✅ |
 | 18 | Rename "Considered favourites" → **Bestsellers** | ✅ |
-| 19 | **Visually verify every product card image matches its name** | ⚠️ |
-| 20 | **Verify 3D hero lighting/scale in a real browser** | ⚠️ |
+| 19 | **Undo scroll-driven 3D** → static centered hero (bold blue) | ✅ |
+| 20 | Bold **blue & white** theme (replace pearl/oxblood) | ✅ |
+| 21 | Add **Sportswear** as 4th audience section | ✅ |
+| 22 | Add 5 **classes** (Premium ULTEM / Unbreakable / Fiber / Metal / Coolers) | ✅ |
+| 23 | **Visually verify every product card image matches its name** | ⚠️ |
+| 24 | **Verify static 3D hero lighting/scale/pose in a real browser** | ⚠️ |
 
 ---
 
@@ -44,15 +48,15 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 - [ ] User will supply the direction; rewrite `app/about/page.tsx` accordingly.
 - [ ] Keep the "no invented history/certifications" rule.
 
-### M2 — 3D hero (Milestone B)
-- [x] Add `@react-three/fiber`, `@react-three/drei`, `three`, `framer-motion`.
+### M2 — 3D hero
+- [x] Add `@react-three/fiber`, `@react-three/drei`, `three`.
 - [x] Load `public/models/glasses-3d-model.glb` in the hero stage.
-- [x] Studio lighting (soft key, rim), contact shadow, capped DPR ≤1.5.
-- [x] Scroll-driven rotation (front three-quarter → temple profile) via one progress value.
-- [x] Poster fallback for loading / error / reduced-motion / <900 px.
-- [ ] ⚠️ Verify model lighting/scale/pose in a real browser; tune keyframes.
+- [x] Studio lighting (key + rim), contact shadow, capped DPR ≤1.5.
+- [x] **Static** centered pose (scroll-driven version removed per user).
+- [x] Poster fallback for loading / <900 px / no-WebGL.
+- [ ] ⚠️ Verify static pose: model scale, lighting, silhouette against the blue bg.
 - [ ] Pause rendering offscreen / on tab hidden; dispose on unmount.
-- [ ] Optional: subtle pointer parallax (desktop, non-reduced-motion).
+- [ ] Optional: subtle idle rotation / pointer parallax (only if user asks).
 
 ### M3 — Mock checkout + confirmation
 - [ ] `/checkout` (delivery demo → review → place demo order).
