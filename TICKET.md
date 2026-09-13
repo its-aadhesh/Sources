@@ -21,14 +21,21 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 | 11 | Placeholder pages: `/milestones`, `/contact`, `/faqs` | ✅ |
 | 12 | Optimize + wire product images from `men power glasses/` | ✅ |
 | 13 | Select hero 3D model (`glasses_3d_model.glb`) | ✅ |
-| 14 | **Visually verify every product card image matches its name** | ⚠️ |
+| 14 | **Scroll-driven 3D hero** (rotate model on scroll, poster fallback) | ✅ |
+| 15 | Rebuild catalog to match `men power glasses 2/` audience×type folders | ✅ |
+| 16 | Add 5 new products (Deep Navy, Teal Cat-Eye, Two-Tone, Blue Sport Wrap, Matte Black Square) | ✅ |
+| 17 | Remove "Prism 01" link from hero (→ Deep Navy Acetate as hero frame) | ✅ |
+| 18 | Rename "Considered favourites" → **Bestsellers** | ✅ |
+| 19 | **Visually verify every product card image matches its name** | ⚠️ |
+| 20 | **Verify 3D hero lighting/scale in a real browser** | ⚠️ |
 
 ---
 
 ## Backlog (next milestones, in order)
 
 ### M0 — Visual QA (do first)
-- [ ] ⚠️ Review hero + all 26 card images against product names (no vision was available this pass).
+- [ ] ⚠️ Review hero + all 31 card images against product names (no vision was available this pass).
+- [ ] ⚠️ Review 3D hero: model lighting, scale, rotation range in a real browser.
 - [ ] Review mobile layout (≤ 390 px) and 320 px reflow.
 - [ ] Confirm Manrope/Inter render (self-hosted fonts).
 - [ ] Check contrast of oxblood on rose/pearl surfaces.
@@ -38,12 +45,14 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 - [ ] Keep the "no invented history/certifications" rule.
 
 ### M2 — 3D hero (Milestone B)
-- [ ] Add `@react-three/fiber`, `@react-three/drei`, `three`.
-- [ ] Load `public/models/glasses-3d-model.glb` in the hero stage.
-- [ ] Studio lighting (soft key, neutral rim), contact shadow, capped DPR ≤1.5.
-- [ ] Scroll-driven camera/rotation (Motion `useScroll` → one shared progress value).
-- [ ] Poster fallback (current image) for loading, error, reduced-motion, <1024 px.
+- [x] Add `@react-three/fiber`, `@react-three/drei`, `three`, `framer-motion`.
+- [x] Load `public/models/glasses-3d-model.glb` in the hero stage.
+- [x] Studio lighting (soft key, rim), contact shadow, capped DPR ≤1.5.
+- [x] Scroll-driven rotation (front three-quarter → temple profile) via one progress value.
+- [x] Poster fallback for loading / error / reduced-motion / <900 px.
+- [ ] ⚠️ Verify model lighting/scale/pose in a real browser; tune keyframes.
 - [ ] Pause rendering offscreen / on tab hidden; dispose on unmount.
+- [ ] Optional: subtle pointer parallax (desktop, non-reduced-motion).
 
 ### M3 — Mock checkout + confirmation
 - [ ] `/checkout` (delivery demo → review → place demo order).
@@ -56,7 +65,7 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 - [ ] Low-stock + out-of-stock states (≥2 OOS products, ≥4 low-stock variants).
 - [ ] Purchase limits per SKU (default 5, premium 3).
 - [ ] Modest discounts (≤4 products) with valid compare-at.
-- [ ] Seed `rating`/`reviews` for all 26 products + review list UI on detail page.
+- [ ] Seed `rating`/`reviews` for all 31 products + review list UI on detail page.
 - [ ] Business order-status flow if desired.
 
 ### M5 — Content pages

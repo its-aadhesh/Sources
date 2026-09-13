@@ -75,25 +75,32 @@ revert to `next/font/google`).
 
 | File | Decision |
 | --- | --- |
-| `glasses_3d_model.glb` (1.9 MB, ~60k tris) | ✅ **CHOSEN** for the hero. Clean optical model with separated parts (Frame, Lens, Nosepads, Temple, Temple_tips) and `KHR_materials_transmission` for realistic lenses. Within the ≤100k-triangle budget. |
+| `glasses_3d_model.glb` (1.9 MB, ~60k tris) | ✅ **CHOSEN + WIRED IN** as the scroll-driven hero (see §5). Clean optical model with separated parts (Frame, Lens, Nosepads, Temple, Temple_tips) and `KHR_materials_transmission` for realistic lenses. Within the ≤100k-triangle budget. |
 | `cyberpunk_johnny_silverhand_glasses.glb` (16.8 MB, ~240k tris) | ❌ **REJECTED.** It is a Cyberpunk-2077 prop (violates the "no cyberpunk" rule), exceeds the triangle budget 4×, and is ~9× the file size. Do not use. |
 
-The 3D scene is **not yet wired into the site** (see §5, Milestone B). The hero
-currently uses the static poster `public/images/prism-01.png` and the model is
-staged and ready in `public/models/` for the next step.
+The hero now loads this model via React Three Fiber and rotates it scroll-driven
+(front three-quarter → temple profile) as the user scrolls through a ~320svh
+pinned section. The static poster (`public/images/navy-hero.png`) is the loading /
+reduced-motion / <900px / WebGL-unavailable fallback.
 
 ### Product images — `public/images/`
 
-26 original product photos were copied from `men power glasses/` (the source
-folder with spaces in its name) and **optimized** (resized from 2816×1536 @ ~5 MB
-down to ≤1600 px wide @ ~20–42 KB JPEG). A full source→target map lives in
-`lib/catalog.ts` (each product's `image` field).
+31 original product photos (sourced from `men power glasses/` and the newer
+`men power glasses 2/` category folders on `main`) were **optimized** (resized
+from 2816×1536 @ ~5 MB down to ≤1600 px wide @ ~19–50 KB JPEG). A full
+source→target map lives in `lib/catalog.ts` (each product's `image` field).
 
-> ⚠️ **Caveat for the next AI:** this environment has no vision, so
-> product→image assignment was made from **descriptive filenames only**
-> (e.g. `Silver Metal Aviators.png` → a metal aviator product). **Visually verify
-> each card image matches its product name before shipping.** The source images
-> are untouched at `men power glasses/`.
+The user reorganized the source images on `main` into **audience × type folders**
+(`men power glasses 2/{men, women, children} {power glasses, sunglasses}/`),
+which is the ground truth for each product's **audience (Men/Women/Children) and
+type (eyeglasses/sunglasses)**. The catalog was rebuilt to match those folders,
+and 5 new images were added as new products (Deep Navy Acetate, Polished Teal
+Cat-Eye, Teal & Lime Two-Tone, Blue Sport Wrap, Matte Black Square).
+
+> ⚠️ **Caveat for the next AI:** this environment has no vision, so image→product
+> matching relies on the folder structure + descriptive filenames only. **Visually
+> verify each card image matches its product name before shipping.** Raw sources
+> remain untouched at `men power glasses/` and `men power glasses 2/`.
 
 ---
 
@@ -104,10 +111,11 @@ down to ≤1600 px wide @ ~20–42 KB JPEG). A full source→target map lives in
 - **Shell:** fixed header (logo = home link → profile / wishlist / cart icons),
   no sidebar, no "Shop collection" text. 5-column footer (Shop now / Account /
   Milestones / About us / Help).
-- **Homepage:** frame-first hero (Prism 01 poster + short headline + "Shop
-  frames" that scrolls to the category section), Men/Women/Children cards,
-  featured row, four collection bands (ULTEM / Polarised / Fiber / Metal),
-  business teaser.
+- **Homepage:** **scroll-driven 3D hero** (glasses_3d_model.glb rotating as you
+  scroll, with poster fallback), Men/Women/Children cards, **Bestsellers** row,
+  four collection bands (ULTEM / Polarised / Fiber / Metal), business teaser.
+  The Prism 01 product link was removed from the hero; Deep Navy Acetate is the
+  hero poster + signature frame.
 - **`/account`:** Customer vs Business role cards + optional display-name form +
   signed-in panel (sign out).
 - **`/shop`:** audience tabs, search, sort, `collection` filter, **pricing mode
@@ -117,21 +125,23 @@ down to ≤1600 px wide @ ~20–42 KB JPEG). A full source→target map lives in
 - **Cart & wishlist:** local persistence (`localStorage` key
   `sri-opticals:commerce:v2`), separate customer/business carts, MOQ + stock
   enforcement, shipping rule (₹99 under ₹3,000, free from ₹3,000).
+- **31-product catalog** aligned to the reorganized audience×type image folders.
 - **Placeholder pages:** `/about` (basic), `/milestones`, `/contact`, `/faqs`
   (all "coming soon"), and a `not-found` page.
 
 ### 🔲 Pending (see `TICKET.md` for the full checklist)
 
 - **A. About Us content** — the user explicitly said they'll review/revise it next.
-- **B. 3D hero** — integrate `glasses_3d_model.glb` (React Three Fiber + Drei),
-  scroll-driven camera, poster fallback, reduced-motion/mobile fallback.
-- **C. Mock checkout + order confirmation** — cart currently says "coming in a
+- **B. Mock checkout + order confirmation** — cart currently says "coming in a
   later iteration".
-- **D. Reviews** — `rating`/`reviews` fields exist on a few products but no
-  review list UI; the catalog is not yet fully seeded with ratings.
-- **E. Full 24-product spec fidelity** — variant/color SKUs, lens options,
-  blue-light configs, low-stock/out-of-stock states are **not** implemented.
-- **F. Milestones / Contact / FAQs real content.**
+- **C. Reviews** — `rating`/`reviews` fields exist on some products but no review
+  list UI.
+- **D. Full spec fidelity** — color variants/SKUs, lens options, blue-light
+  configs, low-stock/out-of-stock states are **not** implemented.
+- **E. Milestones / Contact / FAQs real content.**
+- **F. 3D polish** — verify lighting/scale of the model in a real browser,
+  optional pointer parallax, product-detail "Explore in 3D" viewer (out of scope
+  for now).
 
 ---
 
@@ -141,7 +151,7 @@ down to ≤1600 px wide @ ~20–42 KB JPEG). A full source→target map lives in
 app/
   layout.tsx            root layout + fonts + providers
   globals.css           ALL styling (CSS variables, no Tailwind)
-  page.tsx              homepage
+  page.tsx              homepage (Hero + categories + bestsellers + collections)
   account/page.tsx      role selection
   shop/page.tsx         catalog (searchParams-driven)
   product/[slug]/page.tsx
@@ -155,12 +165,27 @@ components/
   commerce.tsx          ProductCard, Catalog, ProductDetail, CartView, WishlistView
   account.tsx           role cards + session panel
   placeholder.tsx       "coming soon" screen
+  hero.tsx              sticky scroll hero (poster fallback + lazy 3D)
+  three/hero-scene.tsx  React Three Fiber scene (glasses_3d_model.glb)
 lib/
-  catalog.ts            products (26), pricing, MOQ, shipping, collections
+  catalog.ts            products (31), pricing, MOQ, shipping, collections
 public/
   images/*.png          optimized product photos
   models/glasses-3d-model.glb
 ```
+
+### 3D hero stack
+
+- `three` + `@react-three/fiber` (v9) + `@react-three/drei` (v10) render the
+  model; `framer-motion` (v13) supplies `useScroll`/`useTransform` for the
+  scroll progress and text fades.
+- The scene is **lazy-loaded** (`next/dynamic`, `ssr:false`) so the ~740 KB
+  three.js payload only downloads on capable desktop viewports (≥900px, pointer:
+  fine, WebGL present, not reduced-motion). Everything else gets the static
+  poster. Rotation is driven imperatively in `useFrame` from a `MotionValue` —
+  no per-frame React re-renders.
+- React is pinned to `~19.2.0` (fiber v9 requires `react <19.3`). Do NOT bump
+  React past 19.2 without also updating the R3F stack.
 
 ### Key rules encoded in `lib/catalog.ts`
 
@@ -194,4 +219,10 @@ Requires **Node 20.9+**. The build currently passes cleanly (38 routes).
 3. **Keep the demo honest** — every account/checkout surface must say no real
    account/payment/order exists.
 4. **Assets must stay optimized** — do not drop the raw 5 MB PNGs into `public/`.
-5. **Commit on branch `arena/01a09cbf-sources`** and push only to that branch.
+5. **Keep the 3D hero progressive** — poster always renders first; WebGL must
+   never block navigation or shopping.
+6. **Commit on branch `arena/01a09cbf-sources`** and push only to that branch.
+
+> **Note:** `main` on GitHub contains the raw source images (large PNGs). This
+> working branch intentionally keeps only the optimized copies under
+> `public/images/`. Do not merge `main`'s raw assets into `public/`.
