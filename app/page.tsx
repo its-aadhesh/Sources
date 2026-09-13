@@ -3,22 +3,15 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import Hero from "@/components/hero";
 import { ProductGrid } from "@/components/commerce";
-import { collections, products } from "@/lib/catalog";
+import { products } from "@/lib/catalog";
 
 const audiences = [
-  { title: "Men", caption: "Bold, precise, everyday.", image: "/images/navy-hero.png" },
-  { title: "Women", caption: "A little expression.", image: "/images/teal-cateye.png" },
-  { title: "Children", caption: "Flexible, forgiving frames.", image: "/images/teal-lime-square.png" },
-  { title: "Sportswear", caption: "Built for active days.", image: "/images/blue-sport-wrap.png" }
+  { title: "Men", caption: "Bold, precise, everyday.", image: "/images/cat-men.jpg" },
+  { title: "Women", caption: "A little expression.", image: "/images/cat-women.jpg" },
+  { title: "Children", caption: "Flexible, forgiving frames.", image: "/images/cat-children.jpg" },
+  { title: "Shades", caption: "Sun-ready, glare-free.", image: "/images/cat-shades.jpg" },
+  { title: "Sportswear", caption: "Built for active days.", image: "/images/cat-sportswear.jpg" }
 ];
-
-const classIcons: Record<string, string> = {
-  Ultem: "◆",
-  Unbreakable: "●",
-  Fiber: "▲",
-  Metal: "■",
-  Coolers: "◐"
-};
 
 export default function HomePage() {
   const featured = products.filter((p) => p.featured).slice(0, 4);
@@ -27,20 +20,23 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* ————— Shop for Men / Women / Children / Sportswear ————— */}
+      {/* ————— Shop by category ————— */}
       <section
         className="category-section"
         id="shop-categories"
         aria-labelledby="cats-title"
       >
         <div className="section-heading">
-          <h2 id="cats-title" tabIndex={-1}>
-            Shop by who it&rsquo;s for.
-          </h2>
+          <div>
+            <p className="eyebrow">THE COLLECTION</p>
+            <h2 id="cats-title" tabIndex={-1}>
+              Shop by who it&rsquo;s for.
+            </h2>
+          </div>
           <p className="muted">Everyday frames for every head in the house.</p>
         </div>
 
-        <div className="category-grid category-grid-4">
+        <div className="category-grid category-grid-5">
           {audiences.map((c) => (
             <Link
               key={c.title}
@@ -48,42 +44,13 @@ export default function HomePage() {
               className="category-card"
             >
               <div className="category-card-img">
-                <Image src={c.image} alt="" fill sizes="25vw" />
+                <Image src={c.image} alt={`${c.title} eyewear collection`} fill sizes="20vw" />
               </div>
               <div className="category-card-foot">
                 <span>{c.title}</span>
                 <ArrowUpRight size={20} aria-hidden="true" />
               </div>
               <p>{c.caption}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ————— Shop by class ————— */}
-      <section className="class-section" aria-labelledby="class-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">EXPLORE BY CLASS</p>
-            <h2 id="class-title">Pick your material.</h2>
-          </div>
-        </div>
-
-        <div className="class-grid">
-          {collections.map((col) => (
-            <Link
-              key={col.key}
-              href={`/shop?collection=${col.key}`}
-              className="class-card"
-            >
-              <span className="class-mark" aria-hidden="true">
-                {classIcons[col.key]}
-              </span>
-              <div>
-                <h3>{col.title}</h3>
-                <p>{col.blurb}</p>
-              </div>
-              <ArrowUpRight size={20} aria-hidden="true" />
             </Link>
           ))}
         </div>
@@ -112,7 +79,7 @@ export default function HomePage() {
             frame.
           </p>
         </div>
-        <Link href="/account" className="button button-light">
+        <Link href="/account" className="button button-hero">
           Business account <ArrowUpRight size={17} aria-hidden="true" />
         </Link>
       </section>

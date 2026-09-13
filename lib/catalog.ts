@@ -1,4 +1,4 @@
-export type Audience = "Men" | "Women" | "Children" | "Sportswear";
+export type Audience = "Men" | "Women" | "Children" | "Shades" | "Sportswear";
 export type ProductType = "Eyeglasses" | "Sunglasses" | "Sports";
 export type Collection = "Ultem" | "Unbreakable" | "Fiber" | "Metal" | "Coolers";
 export type Role = "customer" | "business";
@@ -26,7 +26,7 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  /* ————— MEN ————— */
+  /* ————— MEN · EYEGLASSES ————— */
   {
     id: "SO-001",
     slug: "deep-navy",
@@ -118,83 +118,10 @@ export const products: Product[] = [
     description:
       "A finer, lighter wire aviator. Minimal metal, maximum comfort."
   },
+
+  /* ————— WOMEN · EYEGLASSES ————— */
   {
     id: "SO-006",
-    slug: "matte-black-square",
-    name: "Matte Black Square",
-    type: "Sunglasses",
-    audience: ["Men"],
-    collection: "Coolers",
-    material: "Acetate",
-    colorName: "Matte black",
-    image: "/images/matte-black-square.png",
-    pricePaise: 399000,
-    stock: 42,
-    limit: 5,
-    dimensions: "54 · 20 · 145 mm",
-    description:
-      "A bold square sunglass in matte black with a polarised sun lens. Sharp, simple, and sun-ready.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-007",
-    slug: "classic-gold-aviator",
-    name: "Classic Gold Aviator",
-    type: "Sunglasses",
-    audience: ["Men"],
-    collection: "Metal",
-    material: "Metal",
-    colorName: "Gold",
-    image: "/images/gold-aviator.png",
-    pricePaise: 499000,
-    stock: 44,
-    limit: 5,
-    dimensions: "55 · 18 · 145 mm",
-    description:
-      "The classic aviator in a warm gold finish. A timeless shape that never really goes out of style."
-  },
-  {
-    id: "SO-008",
-    slug: "silver-metal-clubmaster",
-    name: "Silver Metal Clubmaster",
-    type: "Sunglasses",
-    audience: ["Men"],
-    collection: "Metal",
-    material: "Metal",
-    colorName: "Silver",
-    image: "/images/axis-titanium.png",
-    pricePaise: 749000,
-    stock: 22,
-    limit: 3,
-    dimensions: "52 · 19 · 145 mm",
-    description:
-      "A clubmaster silhouette in a slim silver frame. Light, precise, and quietly confident.",
-    tag: "Premium",
-    rating: 4.8,
-    reviews: 31,
-    featured: true
-  },
-  {
-    id: "SO-009",
-    slug: "silver-round",
-    name: "Silver Round",
-    type: "Sunglasses",
-    audience: ["Men"],
-    collection: "Metal",
-    material: "Metal",
-    colorName: "Silver",
-    image: "/images/silver-round.png",
-    pricePaise: 199000,
-    stock: 52,
-    limit: 5,
-    dimensions: "47 · 20 · 138 mm",
-    description:
-      "A simple round metal frame with a sun lens. An easy, entry-level choice that still looks deliberate."
-  },
-
-  /* ————— WOMEN ————— */
-  {
-    id: "SO-010",
     slug: "matte-black-bold",
     name: "Matte Black Bold",
     type: "Eyeglasses",
@@ -215,7 +142,7 @@ export const products: Product[] = [
     featured: true
   },
   {
-    id: "SO-011",
+    id: "SO-007",
     slug: "tortoise-round",
     name: "Tortoise Shell Round",
     type: "Eyeglasses",
@@ -232,7 +159,7 @@ export const products: Product[] = [
       "A rounded lens shape in classic tortoise. Soft, expressive, and comfortable for long wear."
   },
   {
-    id: "SO-012",
+    id: "SO-008",
     slug: "champagne-square",
     name: "Translucent Champagne Square",
     type: "Eyeglasses",
@@ -249,7 +176,7 @@ export const products: Product[] = [
       "A translucent champagne frame with softened corners. Light in hand, understated on the face."
   },
   {
-    id: "SO-013",
+    id: "SO-009",
     slug: "polished-teal-cateye",
     name: "Polished Teal Cat-Eye",
     type: "Eyeglasses",
@@ -267,7 +194,7 @@ export const products: Product[] = [
     featured: true
   },
   {
-    id: "SO-014",
+    id: "SO-010",
     slug: "matte-rose-gold-aviator",
     name: "Matte Rose Gold Aviator",
     type: "Eyeglasses",
@@ -284,99 +211,10 @@ export const products: Product[] = [
       "A matte rose gold aviator that reads as polished without being shiny. Soft metal, strong shape.",
     featured: true
   },
-  {
-    id: "SO-015",
-    slug: "milky-amber-cateye",
-    name: "Milky Amber Cat-Eye",
-    type: "Sunglasses",
-    audience: ["Women"],
-    collection: "Coolers",
-    material: "Acetate",
-    colorName: "Milky amber",
-    image: "/images/amber-cateye.png",
-    pricePaise: 449000,
-    stock: 40,
-    limit: 5,
-    dimensions: "52 · 18 · 142 mm",
-    description:
-      "A bold cat-eye in milky amber with a polarised sun lens. A stronger lift for a deliberate profile.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-016",
-    slug: "polished-black-rectangle",
-    name: "Polished Black Rectangle",
-    type: "Sunglasses",
-    audience: ["Women"],
-    collection: "Coolers",
-    material: "Acetate",
-    colorName: "Polished black",
-    image: "/images/polished-black-rect.png",
-    pricePaise: 299000,
-    stock: 55,
-    limit: 5,
-    dimensions: "50 · 18 · 140 mm",
-    description:
-      "A modern rectangle with a glossy finish and a polarised sun lens. Straightforward and sun-ready.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-017",
-    slug: "rose-gold-geometric",
-    name: "Rose Gold Geometric",
-    type: "Sunglasses",
-    audience: ["Women"],
-    collection: "Metal",
-    material: "Metal",
-    colorName: "Rose gold",
-    image: "/images/rosegold-geometric.png",
-    pricePaise: 369000,
-    stock: 33,
-    limit: 5,
-    dimensions: "50 · 19 · 140 mm",
-    description:
-      "A geometric metal frame in rose gold. Clean angles and a softer metallic tone."
-  },
-  {
-    id: "SO-018",
-    slug: "tortoise-oversized-round",
-    name: "Tortoise Oversized Round",
-    type: "Sunglasses",
-    audience: ["Women"],
-    collection: "Coolers",
-    material: "Acetate",
-    colorName: "Tortoise",
-    image: "/images/tortoise-70s.png",
-    pricePaise: 379000,
-    stock: 28,
-    limit: 5,
-    dimensions: "54 · 20 · 145 mm",
-    description:
-      "An oversized seventies-inspired round in tortoise. A statement silhouette with a warm finish.",
-    tag: "Polarised"
-  },
-  {
-    id: "SO-019",
-    slug: "teal-rimless-shield",
-    name: "Translucent Teal Shield",
-    type: "Sunglasses",
-    audience: ["Women"],
-    collection: "Coolers",
-    material: "Acetate",
-    colorName: "Translucent teal",
-    image: "/images/teal-shield.png",
-    pricePaise: 499000,
-    stock: 26,
-    limit: 5,
-    dimensions: "53 · 18 · 140 mm",
-    description:
-      "A rimless-style shield in translucent teal. A modern, minimal profile with a hint of colour.",
-    tag: "Polarised"
-  },
 
-  /* ————— CHILDREN ————— */
+  /* ————— CHILDREN · EYEGLASSES (flexible) ————— */
   {
-    id: "SO-020",
+    id: "SO-011",
     slug: "flexible-blue-square",
     name: "Flexible Blue Square",
     type: "Eyeglasses",
@@ -395,7 +233,7 @@ export const products: Product[] = [
     featured: true
   },
   {
-    id: "SO-021",
+    id: "SO-012",
     slug: "kids-round-flex",
     name: "Kids Round Flex",
     type: "Eyeglasses",
@@ -413,7 +251,7 @@ export const products: Product[] = [
     tag: "Flexible"
   },
   {
-    id: "SO-022",
+    id: "SO-013",
     slug: "clear-glitter-pink",
     name: "Clear Glitter Pink",
     type: "Eyeglasses",
@@ -431,7 +269,7 @@ export const products: Product[] = [
     tag: "Flexible"
   },
   {
-    id: "SO-023",
+    id: "SO-014",
     slug: "matte-purple-round",
     name: "Matte Purple Round",
     type: "Eyeglasses",
@@ -449,7 +287,7 @@ export const products: Product[] = [
     tag: "Flexible"
   },
   {
-    id: "SO-024",
+    id: "SO-015",
     slug: "teal-lime-two-tone",
     name: "Teal & Lime Two-Tone",
     type: "Eyeglasses",
@@ -466,12 +304,178 @@ export const products: Product[] = [
       "A two-tone teal and lime square for kids who like a little colour. Flexible, light, and fun.",
     tag: "Flexible"
   },
+
+  /* ————— SHADES · SUNGLASSES ————— */
+  {
+    id: "SO-016",
+    slug: "classic-gold-aviator",
+    name: "Classic Gold Aviator",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Metal",
+    material: "Metal",
+    colorName: "Gold",
+    image: "/images/gold-aviator.png",
+    pricePaise: 499000,
+    stock: 44,
+    limit: 5,
+    dimensions: "55 · 18 · 145 mm",
+    description:
+      "The classic aviator in a warm gold finish. A timeless shape that never really goes out of style.",
+    tag: "Polarised",
+    featured: true
+  },
+  {
+    id: "SO-017",
+    slug: "silver-metal-clubmaster",
+    name: "Silver Metal Clubmaster",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Metal",
+    material: "Metal",
+    colorName: "Silver",
+    image: "/images/axis-titanium.png",
+    pricePaise: 749000,
+    stock: 22,
+    limit: 3,
+    dimensions: "52 · 19 · 145 mm",
+    description:
+      "A clubmaster silhouette in a slim silver frame. Light, precise, and quietly confident.",
+    tag: "Premium",
+    rating: 4.8,
+    reviews: 31,
+    featured: true
+  },
+  {
+    id: "SO-018",
+    slug: "silver-round",
+    name: "Silver Round",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Metal",
+    material: "Metal",
+    colorName: "Silver",
+    image: "/images/silver-round.png",
+    pricePaise: 199000,
+    stock: 52,
+    limit: 5,
+    dimensions: "47 · 20 · 138 mm",
+    description:
+      "A simple round metal frame with a sun lens. An easy, entry-level choice that still looks deliberate."
+  },
+  {
+    id: "SO-019",
+    slug: "matte-black-square",
+    name: "Matte Black Square",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Coolers",
+    material: "Acetate",
+    colorName: "Matte black",
+    image: "/images/matte-black-square.png",
+    pricePaise: 399000,
+    stock: 42,
+    limit: 5,
+    dimensions: "54 · 20 · 145 mm",
+    description:
+      "A bold square sunglass in matte black with a polarised sun lens. Sharp, simple, and sun-ready.",
+    tag: "Polarised"
+  },
+  {
+    id: "SO-020",
+    slug: "milky-amber-cateye",
+    name: "Milky Amber Cat-Eye",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Coolers",
+    material: "Acetate",
+    colorName: "Milky amber",
+    image: "/images/amber-cateye.png",
+    pricePaise: 449000,
+    stock: 40,
+    limit: 5,
+    dimensions: "52 · 18 · 142 mm",
+    description:
+      "A bold cat-eye in milky amber with a polarised sun lens. A stronger lift for a deliberate profile.",
+    tag: "Polarised"
+  },
+  {
+    id: "SO-021",
+    slug: "polished-black-rectangle",
+    name: "Polished Black Rectangle",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Coolers",
+    material: "Acetate",
+    colorName: "Polished black",
+    image: "/images/polished-black-rect.png",
+    pricePaise: 299000,
+    stock: 55,
+    limit: 5,
+    dimensions: "50 · 18 · 140 mm",
+    description:
+      "A modern rectangle with a glossy finish and a polarised sun lens. Straightforward and sun-ready.",
+    tag: "Polarised"
+  },
+  {
+    id: "SO-022",
+    slug: "rose-gold-geometric",
+    name: "Rose Gold Geometric",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Metal",
+    material: "Metal",
+    colorName: "Rose gold",
+    image: "/images/rosegold-geometric.png",
+    pricePaise: 369000,
+    stock: 33,
+    limit: 5,
+    dimensions: "50 · 19 · 140 mm",
+    description:
+      "A geometric metal frame in rose gold. Clean angles and a softer metallic tone."
+  },
+  {
+    id: "SO-023",
+    slug: "tortoise-oversized-round",
+    name: "Tortoise Oversized Round",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Coolers",
+    material: "Acetate",
+    colorName: "Tortoise",
+    image: "/images/tortoise-70s.png",
+    pricePaise: 379000,
+    stock: 28,
+    limit: 5,
+    dimensions: "54 · 20 · 145 mm",
+    description:
+      "An oversized seventies-inspired round in tortoise. A statement silhouette with a warm finish.",
+    tag: "Polarised"
+  },
+  {
+    id: "SO-024",
+    slug: "teal-rimless-shield",
+    name: "Translucent Teal Shield",
+    type: "Sunglasses",
+    audience: ["Shades"],
+    collection: "Coolers",
+    material: "Acetate",
+    colorName: "Translucent teal",
+    image: "/images/teal-shield.png",
+    pricePaise: 499000,
+    stock: 26,
+    limit: 5,
+    dimensions: "53 · 18 · 140 mm",
+    description:
+      "A rimless-style shield in translucent teal. A modern, minimal profile with a hint of colour.",
+    tag: "Polarised"
+  },
   {
     id: "SO-025",
     slug: "clear-gold-glitter-cateye",
     name: "Clear Gold Glitter Cat-Eye",
     type: "Sunglasses",
-    audience: ["Children"],
+    audience: ["Shades"],
     collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Clear gold glitter",
@@ -489,7 +493,7 @@ export const products: Product[] = [
     slug: "sky-blue-wayfarer",
     name: "Sky Blue Wayfarer",
     type: "Sunglasses",
-    audience: ["Children"],
+    audience: ["Shades"],
     collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Sky blue",
@@ -507,7 +511,7 @@ export const products: Product[] = [
     slug: "orange-round",
     name: "Orange Round",
     type: "Sunglasses",
-    audience: ["Children"],
+    audience: ["Shades"],
     collection: "Coolers",
     material: "Flexible polymer",
     colorName: "Orange",
@@ -525,7 +529,7 @@ export const products: Product[] = [
     slug: "silver-metal-aviator",
     name: "Silver Metal Aviator",
     type: "Sunglasses",
-    audience: ["Children"],
+    audience: ["Shades"],
     collection: "Metal",
     material: "Metal",
     colorName: "Silver",
@@ -538,7 +542,7 @@ export const products: Product[] = [
       "A cool silver aviator sized for younger faces. Light, durable, and easy to pair with anything."
   },
 
-  /* ————— SPORTSWEAR ————— */
+  /* ————— SPORTSWEAR · SPORTS ————— */
   {
     id: "SO-029",
     slug: "blue-sport-wrap",
@@ -633,33 +637,13 @@ export function getShipping(subtotalPaise: number) {
   return 9900;
 }
 
-/** The five merchandising "classes" shown across Men / Women / Children / Sportswear. */
-export const collections: { key: Collection; title: string; blurb: string }[] = [
-  {
-    key: "Ultem",
-    title: "Premium ULTEM",
-    blurb: "Flexible, impact-resistant frames in simulated ULTEM. Tough enough for daily wear."
-  },
-  {
-    key: "Unbreakable",
-    title: "Unbreakable",
-    blurb: "Forgiving, flexible frames built to bend and bounce back. Ideal for kids and active days."
-  },
-  {
-    key: "Fiber",
-    title: "Fiber",
-    blurb: "Acetate and polymer frames in everyday shapes. Colour, finish, and all-day comfort."
-  },
-  {
-    key: "Metal",
-    title: "Metal",
-    blurb: "Lightweight metal frames in gold, silver, and rose tones. Slim lines, precise detailing."
-  },
-  {
-    key: "Coolers",
-    title: "Coolers",
-    blurb: "Sun-ready frames with polarised lenses. Sharper, calmer vision outdoors without the glare."
-  }
+/** The five merchandising "classes" found inside each category. */
+export const collections: { key: Collection; title: string }[] = [
+  { key: "Ultem", title: "Premium ULTEM" },
+  { key: "Unbreakable", title: "Unbreakable" },
+  { key: "Fiber", title: "Fiber" },
+  { key: "Metal", title: "Metal" },
+  { key: "Coolers", title: "Coolers" }
 ];
 
 export function productsByCollection(key: Collection) {

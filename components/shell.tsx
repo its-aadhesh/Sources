@@ -64,7 +64,8 @@ const footerColumns = [
       { label: "Men", href: "/shop?audience=Men" },
       { label: "Women", href: "/shop?audience=Women" },
       { label: "Children", href: "/shop?audience=Children" },
-      { label: "All frames", href: "/shop" }
+      { label: "Shades", href: "/shop?audience=Shades" },
+      { label: "Sportswear", href: "/shop?audience=Sportswear" }
     ]
   },
   {
@@ -94,7 +95,7 @@ export function Footer() {
       <div className="footer-top">
         <div className="footer-brand">
           <Link href="/" className="footer-wordmark">
-            SRI OPTICALS
+            SRI<span>OPTICALS</span>
           </Link>
           <p>A new perspective. An everyday signature.</p>
         </div>

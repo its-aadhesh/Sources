@@ -190,8 +190,8 @@ export function Catalog({
         )}
       </div>
 
-      <nav className="category-tabs" aria-label="Shop by audience">
-        {["All", "Men", "Women", "Children", "Sportswear"].map((item) => (
+      <nav className="category-tabs" aria-label="Shop by category">
+        {["All", "Men", "Women", "Children", "Shades", "Sportswear"].map((item) => (
           <Link
             href={hrefFor(item)}
             key={item}
@@ -203,7 +203,7 @@ export function Catalog({
         ))}
       </nav>
 
-      <div className="class-filter" aria-label="Shop by class">
+      <div className="class-filter" aria-label="Filter by class">
         <span className="class-filter-label">Class:</span>
         <Link
           href={hrefForClass("")}
@@ -212,14 +212,14 @@ export function Catalog({
         >
           All
         </Link>
-        {["Ultem", "Unbreakable", "Fiber", "Metal", "Coolers"].map((key) => (
+        {collections.map((c) => (
           <Link
-            key={key}
-            href={hrefForClass(key)}
-            className={collection === key ? "active" : ""}
-            aria-current={collection === key ? "page" : undefined}
+            key={c.key}
+            href={hrefForClass(c.key)}
+            className={collection === c.key ? "active" : ""}
+            aria-current={collection === c.key ? "page" : undefined}
           >
-            {collections.find((c) => c.key === key)?.title ?? key}
+            {c.title}
           </Link>
         ))}
       </div>

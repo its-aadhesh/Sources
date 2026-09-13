@@ -48,25 +48,31 @@ The current build implements all of the above. See §5 for what is still pending
 
 ---
 
-## 3. Theme (approved: Bold Blue & White)
+## 3. Theme (approved: Ivory & Espresso & Brass)
 
 Defined in `app/globals.css` under `:root`:
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--blue` | `#1456E8` | Primary accent — buttons, links, active states |
-| `--blue-dark` | `#0E3FB0` | Hover / pressed |
-| `--blue-deep` | `#0A2A6E` | Hero/closing gradient end, dark surfaces |
-| `--blue-tint` | `#EAF0FF` | Light-blue surfaces, tags, notices |
-| `--bg` | `#FFFFFF` | Page background |
-| `--bg-soft` | `#F5F8FF` | Product stages, cards |
-| `--ink` | `#0B1B3F` | Headings & body text |
-| `--muted` | `#5B6B8C` | Secondary text |
-| `--line` | `#DFE6F5` | Borders |
+| `--canvas` | `#F6F1E8` | Warm ivory page background |
+| `--surface` | `#FFFFFF` | Cards / inputs |
+| `--stage` | `#EFE8DB` | Warm product stages |
+| `--ink` | `#231A10` | Deep espresso headings & body |
+| `--muted` | `#72654F` | Secondary text |
+| `--accent` | `#A1763A` | Brass — buttons, links, active states |
+| `--accent-hover` | `#855E2B` | Hover / pressed |
+| `--accent-soft` | `#F1E7D4` | Brass-tinted surfaces |
+| `--line` | `#E6DDCC` | Borders |
+| `--dark` | `#1C140C` | Espresso footer / hero background |
+| `--dark-2` | `#2A1F12` | Gradient mid-tone |
 
-The hero and closing band use a **bold blue gradient** (`#1B52E6 → #0A2A6E`) with
-white type. The **footer is dark navy**. This replaced the earlier Pearl /
-Graphite / Oxblood theme — **do not reintroduce** the soft beige/oxblood palette.
+The hero and closing band use an **espresso gradient** (`#2A1F12 → #1C140C`) with
+white type and brass eyebrow text; the white-screened hero spectacles pop against
+it. The **footer is dark espresso** with brass column headings.
+
+**This is the third theme.** History: (1) sage/beige — rejected, (2) pearl/oxblood
+— rejected, (3) bold blue — rejected. **Ivory & Espresso & Brass is current. Do
+not reintroduce any previous palette.**
 
 **Fonts:** Manrope (display/headings, weight 800) + Inter (body), self-hosted via
 `@fontsource-variable/*` (Google Fonts was blocked in this environment — do NOT
@@ -76,36 +82,33 @@ revert to `next/font/google`).
 
 ## 4. Asset decisions (from this repo: `its-aadhesh/Sources`)
 
-### 3D models — `public/models/`
+### 3D models — REMOVED
 
-| File | Decision |
-| --- | --- |
-| `glasses_3d_model.glb` (1.9 MB, ~60k tris) | ✅ **CHOSEN + WIRED IN** as a **static** hero render (see §5). Clean optical model with separated parts (Frame, Lens, Nosepads, Temple, Temple_tips) and `KHR_materials_transmission` for realistic lenses. Within the ≤100k-triangle budget. |
-| `cyberpunk_johnny_silverhand_glasses.glb` (16.8 MB, ~240k tris) | ❌ **REJECTED.** It is a Cyberpunk-2077 prop (violates the "no cyberpunk" rule), exceeds the triangle budget 4×, and is ~9× the file size. Do not use. |
+Both `.glb` models (`glasses_3d_model.glb`, `cyberpunk_johnny_silverhand_glasses.glb`)
+were **deleted from `main` by the user and removed from this build**. The user
+explicitly hates the 3D-rendered glasses. **Do NOT reintroduce three.js /
+React Three Fiber / any `.glb` rendering.** `three`, `@react-three/fiber`,
+`@react-three/drei`, `@types/three`, and `framer-motion` have all been removed
+from `package.json`.
 
-The hero renders this model once in a **fixed, centered studio pose** (no scroll
-choreography — the user reverted the scroll-driven animation). The static poster
-(`public/images/navy-hero.png`) is the loading / <900px / WebGL-unavailable
-fallback. **The user does NOT want scroll-driven 3D** — keep the hero static.
+The hero is now a **static image**: `public/images/hero.jpg` (the user-supplied
+HD white-screened "Hero Page Spectacle.jpg").
 
 ### Product images — `public/images/`
 
-31 original product photos (sourced from `men power glasses/` and the newer
-`men power glasses 2/` category folders on `main`) were **optimized** (resized
-from 2816×1536 @ ~5 MB down to ≤1600 px wide @ ~19–50 KB JPEG). A full
-source→target map lives in `lib/catalog.ts` (each product's `image` field).
-
-The user reorganized the source images on `main` into **audience × type folders**
-(`men power glasses 2/{men, women, children} {power glasses, sunglasses}/`),
-which is the ground truth for each product's **audience (Men/Women/Children) and
-type (eyeglasses/sunglasses)**. The catalog was rebuilt to match those folders,
-and 5 new images were added as new products (Deep Navy Acetate, Polished Teal
-Cat-Eye, Teal & Lime Two-Tone, Blue Sport Wrap, Matte Black Square).
+- **Hero:** `hero.jpg` (from `Hero Page Spectacle.jpg`, 4794×4000 → 1600 wide).
+- **Category cards:** `cat-men.jpg`, `cat-women.jpg`, `cat-children.jpg`,
+  `cat-shades.jpg`, `cat-sportswear.jpg` — the 6 new HD **white-screened** images
+  the user added to `main` (`Men.jpg`, `Women.jpg`, `Children.jpg`, `Shades.jpg`,
+  `Sportswear.jpg`), all normalized to a uniform **4:5 portrait (900×1125)** for
+  consistency.
+- **Product listings:** 31 optimized photos from `men power glasses 2/` (see
+  `lib/catalog.ts` → each product's `image`). Resized from ~5 MB to ≤1600 px wide.
 
 > ⚠️ **Caveat for the next AI:** this environment has no vision, so image→product
-> matching relies on the folder structure + descriptive filenames only. **Visually
-> verify each card image matches its product name before shipping.** Raw sources
-> remain untouched at `men power glasses/` and `men power glasses 2/`.
+> matching relies on folder structure + filenames. **Visually verify each card
+> image matches its product name before shipping.** Raw sources remain untouched at
+> `men power glasses 2/` on `main`.
 
 ---
 
@@ -116,13 +119,14 @@ Cat-Eye, Teal & Lime Two-Tone, Blue Sport Wrap, Matte Black Square).
 - **Shell:** fixed header (logo = home link → profile / wishlist / cart icons),
   no sidebar, no "Shop collection" text. 5-column footer (Shop now / Account /
   Milestones / About us / Help).
-- **Homepage:** **static 3D hero** (glasses_3d_model.glb, centered studio pose on
-  a bold blue gradient, no scroll animation), **four** audience cards (Men /
-  Women / Children / **Sportswear**), a **"Shop by class"** section (5 classes),
-  **Bestsellers** row, and a business teaser. The Prism 01 link is gone; Deep
-  Navy is the hero poster + signature frame.
+- **Homepage:** **static image hero** (`hero.jpg`, centered on an espresso
+  gradient — no 3D, no scroll animation), **five** category cards (Men / Women /
+  Children / **Shades** / **Sportswear**) using uniform white-screened images,
+  a **Bestsellers** row, and a business teaser. There is **no separate "Shop by
+  class/material" section** — classes live only as a filter inside `/shop`.
 - **`/account`:** Customer vs Business role cards + optional display-name form +
-  signed-in panel (sign out).
+  signed-in panel (sign out). Choosing a role **auto-scrolls to the name form**
+  and focuses its input (no manual scrolling).
 - **`/shop`:** audience tabs, search, sort, `collection` filter, **pricing mode
   banner** (retail vs wholesale), URL-state filters.
 - **Product detail:** image, price (retail vs wholesale + strikethrough
@@ -130,9 +134,10 @@ Cat-Eye, Teal & Lime Two-Tone, Blue Sport Wrap, Matte Black Square).
 - **Cart & wishlist:** local persistence (`localStorage` key
   `sri-opticals:commerce:v2`), separate customer/business carts, MOQ + stock
   enforcement, shipping rule (₹99 under ₹3,000, free from ₹3,000).
-- **31-product catalog** across **4 audiences** (Men / Women / Children /
-  Sportswear) and **5 classes** (Premium ULTEM / Unbreakable / Fiber / Metal /
-  Coolers), aligned to the reorganized audience×type image folders.
+- **31-product catalog** across **5 categories** (Men / Women / Children / Shades
+  / Sportswear) and **5 classes** (Premium ULTEM / Unbreakable / Fiber / Metal /
+  Coolers). Classes are a sub-filter inside each category, not a standalone
+  section.
 - **Placeholder pages:** `/about` (basic), `/milestones`, `/contact`, `/faqs`
   (all "coming soon"), and a `not-found` page.
 
@@ -146,9 +151,6 @@ Cat-Eye, Teal & Lime Two-Tone, Blue Sport Wrap, Matte Black Square).
 - **D. Full spec fidelity** — color variants/SKUs, lens options, blue-light
   configs, low-stock/out-of-stock states are **not** implemented.
 - **E. Milestones / Contact / FAQs real content.**
-- **F. 3D polish** — verify lighting/scale of the model in a real browser,
-  optional pointer parallax, product-detail "Explore in 3D" viewer (out of scope
-  for now).
 
 ---
 
@@ -170,28 +172,14 @@ components/
   shell.tsx             Header + Footer + Feedback (toast/storage notice)
   store-provider.tsx    client state + persistence (React Context, not Zustand)
   commerce.tsx          ProductCard, Catalog, ProductDetail, CartView, WishlistView
-  account.tsx           role cards + session panel
+  account.tsx           role cards + session panel (auto-scrolls to form)
   placeholder.tsx       "coming soon" screen
-  hero.tsx              static 3D hero (poster fallback + lazy 3D, no scroll)
-  three/hero-scene.tsx  React Three Fiber scene (glasses_3d_model.glb)
+  hero.tsx              static image hero (no 3D, no animation)
 lib/
   catalog.ts            products (31), pricing, MOQ, shipping, collections
 public/
-  images/*.png          optimized product photos
-  models/glasses-3d-model.glb
+  images/               hero.jpg + cat-*.jpg + optimized product photos
 ```
-
-### 3D hero stack
-
-- `three` + `@react-three/fiber` (v9) + `@react-three/drei` (v10) render the
-  model in a **fixed, static pose** (one centered studio shot, no scroll/animation).
-  `framer-motion` is still installed but **no longer used** (the scroll version
-  was reverted) — safe to remove later.
-- The scene is **lazy-loaded** (`next/dynamic`, `ssr:false`) so the ~740 KB
-  three.js payload only downloads on capable desktop viewports (≥900px, pointer:
-  fine, WebGL present). Everything else gets the static poster.
-- React is pinned to `~19.2.0` (fiber v9 requires `react <19.3`). Do NOT bump
-  React past 19.2 without also updating the R3F stack.
 
 ### Key rules encoded in `lib/catalog.ts`
 
@@ -212,22 +200,24 @@ npm run build      # production build (validates everything)
 npm run typecheck  # tsc --noEmit
 ```
 
-Requires **Node 20.9+**. The build currently passes cleanly (38 routes).
+Requires **Node 20.9+**. The build currently passes cleanly (43 routes).
 
 ---
 
 ## 8. Conventions for the next AI
 
-1. **Do not reintroduce** the rejected direction: no oversized "A new
-   perspective." hero headline, no sage/beige or oxblood palette, no sidebar, no
-   five-chapter slogans, no "Shop collection" text in the header, **and no
-   scroll-driven 3D animation** (the hero is a static centered render).
+1. **Do not reintroduce** the rejected direction: no sage/beige, pearl/oxblood, or
+   blue palette (use the current Ivory/Espresso/Brass); no sidebar; no
+   five-chapter slogans; no "Shop collection" text in the header; **and no 3D
+   rendering at all** (no `.glb`, no three.js — the hero is a static image).
 2. **Keep prices in paise**, role-aware. Never hardcode retail prices into UI.
 3. **Keep the demo honest** — every account/checkout surface must say no real
    account/payment/order exists.
-4. **Assets must stay optimized** — do not drop the raw 5 MB PNGs into `public/`.
-5. **Keep the 3D hero progressive** — poster always renders first; WebGL must
-   never block navigation or shopping.
+4. **Assets must stay optimized** — do not drop the raw multi-MB images into
+   `public/`; normalize + compress them.
+5. **Five top categories** (Men/Women/Children/Shades/Sportswear); classes
+   (ULTEM/Unbreakable/Fiber/Metal/Coolers) are a **sub-filter inside** categories,
+   not a standalone homepage section.
 6. **Commit on branch `arena/01a09cbf-sources`** and push only to that branch.
 
 > **Note:** `main` on GitHub contains the raw source images (large PNGs). This

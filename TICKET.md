@@ -26,12 +26,16 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 | 16 | Add 5 new products (Deep Navy, Teal Cat-Eye, Two-Tone, Blue Sport Wrap, Matte Black Square) | ✅ |
 | 17 | Remove "Prism 01" link from hero (→ Deep Navy Acetate as hero frame) | ✅ |
 | 18 | Rename "Considered favourites" → **Bestsellers** | ✅ |
-| 19 | **Undo scroll-driven 3D** → static centered hero (bold blue) | ✅ |
-| 20 | Bold **blue & white** theme (replace pearl/oxblood) | ✅ |
-| 21 | Add **Sportswear** as 4th audience section | ✅ |
-| 22 | Add 5 **classes** (Premium ULTEM / Unbreakable / Fiber / Metal / Coolers) | ✅ |
-| 23 | **Visually verify every product card image matches its name** | ⚠️ |
-| 24 | **Verify static 3D hero lighting/scale/pose in a real browser** | ⚠️ |
+| 19 | **Undo scroll-driven 3D** → static centered hero | ✅ |
+| 20 | **Drop blue theme** → Ivory / Espresso / Brass premium palette | ✅ |
+| 21 | **Remove all 3D (.glb)** — hero is a static HD white-screened image | ✅ |
+| 22 | Use new HD category images (Men/Women/Children/Shades/Sportswear + hero) | ✅ |
+| 23 | **5 categories**: Men, Women, Children, **Shades**, **Sportswear** | ✅ |
+| 24 | Classes (ULTEM/Unbreakable/Fiber/Metal/Coolers) as sub-filter only inside categories | ✅ |
+| 25 | Remove standalone "Shop by material" section | ✅ |
+| 26 | Account: auto-scroll to details form on "Continue as customer/business" | ✅ |
+| 27 | **Visually verify every product card image matches its name** | ⚠️ |
+| 28 | **Review new theme + category-image uniformity in a real browser** | ⚠️ |
 
 ---
 
@@ -39,24 +43,19 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 
 ### M0 — Visual QA (do first)
 - [ ] ⚠️ Review hero + all 31 card images against product names (no vision was available this pass).
-- [ ] ⚠️ Review 3D hero: model lighting, scale, rotation range in a real browser.
+- [ ] ⚠️ Review new Ivory/Espresso/Brass theme + 5 category-card image uniformity.
 - [ ] Review mobile layout (≤ 390 px) and 320 px reflow.
 - [ ] Confirm Manrope/Inter render (self-hosted fonts).
-- [ ] Check contrast of oxblood on rose/pearl surfaces.
+- [ ] Check contrast of brass on ivory/espresso surfaces.
 
 ### M1 — About Us content
 - [ ] User will supply the direction; rewrite `app/about/page.tsx` accordingly.
 - [ ] Keep the "no invented history/certifications" rule.
 
-### M2 — 3D hero
-- [x] Add `@react-three/fiber`, `@react-three/drei`, `three`.
-- [x] Load `public/models/glasses-3d-model.glb` in the hero stage.
-- [x] Studio lighting (key + rim), contact shadow, capped DPR ≤1.5.
-- [x] **Static** centered pose (scroll-driven version removed per user).
-- [x] Poster fallback for loading / <900 px / no-WebGL.
-- [ ] ⚠️ Verify static pose: model scale, lighting, silhouette against the blue bg.
-- [ ] Pause rendering offscreen / on tab hidden; dispose on unmount.
-- [ ] Optional: subtle idle rotation / pointer parallax (only if user asks).
+### M2 — 3D hero — REMOVED (closed)
+- [x] Removed `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`.
+- [x] Hero is now a static HD white-screened image (`hero.jpg`).
+- Do NOT reintroduce 3D (user rejected it twice).
 
 ### M3 — Mock checkout + confirmation
 - [ ] `/checkout` (delivery demo → review → place demo order).

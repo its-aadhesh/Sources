@@ -15,7 +15,9 @@ export default async function ShopPage({
     typeof v === "string" ? v : "";
 
   const rawAudience = first(params.audience);
-  const audience = ["Men", "Women", "Children", "Sportswear"].includes(rawAudience)
+  const audience = ["Men", "Women", "Children", "Shades", "Sportswear"].includes(
+    rawAudience
+  )
     ? rawAudience
     : "All";
 

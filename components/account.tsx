@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Briefcase, LogOut, UserRound } from "lucide-react";
 import { useStore } from "@/components/store-provider";
 import type { Role } from "@/lib/catalog";
@@ -10,6 +10,18 @@ export function AccountEntry() {
   const { ready, session, signIn, signOut } = useStore();
   const [name, setName] = useState("");
   const [pending, setPending] = useState<Role | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // When a role is chosen, auto-scroll to the details form and focus its input.
+  useEffect(() => {
+    if (pending) {
+      const t = setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        document.getElementById("demo-name")?.focus();
+      }, 60);
+      return () => clearTimeout(t);
+    }
+  }, [pending]);
 
   if (!ready) {
     return <div className="loading-state" role="status">Loading…</div>;
@@ -85,7 +97,7 @@ export function AccountEntry() {
       </article>
 
       {pending && (
-        <div className="name-form" role="dialog" aria-label="Enter demo name">
+        <div className="name-form" ref={formRef} role="dialog" aria-label="Enter demo name">
           <p className="eyebrow">OPTIONAL DISPLAY NAME</p>
           <h2>Start your {pending} demo session.</h2>
           <form
