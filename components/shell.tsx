@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Heart, ShoppingBag, UserRound } from "lucide-react";
@@ -16,8 +17,17 @@ export function Header() {
       </a>
 
       <header className="site-header">
-        <Link href="/" className="wordmark" aria-label="Sri Opticals home">
-          SRI<span>OPTICALS</span>
+        <Link href="/" className="brand" aria-label="Sri Opticals home">
+          <Image
+            src="/images/monogram-so.jpg"
+            alt=""
+            width={44}
+            height={44}
+            className="monogram"
+          />
+          <span className="wordmark">
+            SRI<span>OPTICALS</span>
+          </span>
         </Link>
 
         <nav className="header-actions" aria-label="Account and shopping">
@@ -73,14 +83,20 @@ const footerColumns = [
     links: [{ label: "Manage your account", href: "/account" }]
   },
   {
-    heading: "Milestones",
-    links: [{ label: "Milestones", href: "/milestones" }]
+    heading: "About Sri Opticals",
+    links: [
+      { label: "About Sri Opticals", href: "/about" },
+      { label: "Milestones", href: "/milestones" },
+      { label: "Contact us", href: "/contact" }
+    ]
   },
   {
-    heading: "About us",
+    heading: "Find us",
     links: [
-      { label: "About us", href: "/about" },
-      { label: "Contact us", href: "/contact" }
+      { label: "Facebook", href: "/social/facebook" },
+      { label: "Instagram", href: "/social/instagram" },
+      { label: "Twitter", href: "/social/twitter" },
+      { label: "WhatsApp", href: "/social/whatsapp" }
     ]
   },
   {
@@ -94,8 +110,17 @@ export function Footer() {
     <footer className="site-footer">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link href="/" className="footer-wordmark">
-            SRI<span>OPTICALS</span>
+          <Link href="/" className="footer-wordmark" aria-label="Sri Opticals home">
+            <Image
+              src="/images/monogram-so.jpg"
+              alt=""
+              width={34}
+              height={34}
+              className="monogram"
+            />
+            <span>
+              SRI<span>OPTICALS</span>
+            </span>
           </Link>
           <p>A new perspective. An everyday signature.</p>
         </div>

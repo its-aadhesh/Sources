@@ -4,6 +4,23 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 
 ---
 
+## Latest iteration (footer, hero, classes, specs, monogram)
+
+| # | Task | Status |
+| --- | --- | --- |
+| 37 | Footer: "About Sri Opticals" (title) + Milestones under it; "Find us" with Facebook/Instagram/Twitter/WhatsApp → placeholder | ✅ |
+| 38 | Hero: shift models right on desktop, dim the white type, drop text below the faces on mobile | ✅ |
+| 39 | Classes → Ultem / HMA / Shell / Metal (+ "Punk Glasses" for Shades; Sportswear = All only) | ✅ |
+| 40 | Product listings: model number, gender, size·bridge·temple, colour, shape, frame type, frame material | ✅ |
+| 41 | Colour selector UI (add swatches even when only one colour) | ✅ |
+| 42 | Swipeable multi-image gallery on product pages | ✅ |
+| 43 | Replace B2B poster with "Buying for a store ex pic.jpg" (portrait, responsive) | ✅ |
+| 44 | Create SO monogram (.jpg) + top-left header logo → home | ✅ |
+| 45 | Update `upload_image.md` for multi-image + colours + specs | ✅ |
+| 46 | ⚠️ Visually verify hero model/type placement + poster + swatches in a real browser | ⚠️ |
+
+---
+
 ## Latest iteration (hero photo + uniform square product images)
 
 | # | Task | Status |
@@ -105,7 +122,8 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 What the user has asked to build *later* (in rough priority order):
 
 1. **Final per-product photos** — replace the 10 placeholder square images with a
-   unique, correct photo for each of the 31 products (user will do this using
+   unique, correct photo for each of the 31 products, and add **multiple angles
+   per product** to populate the swipe gallery (user will do this using
    `upload_image.md`; needs proper aspect ratio + uniform backgrounds).
 2. **Mock checkout + order confirmation** — `/checkout` (delivery demo → review →
    place demo order) and `/order-confirmation/[id]`, with idempotency, stock

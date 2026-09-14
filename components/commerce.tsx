@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
   Heart,
   Minus,
   Plus,
@@ -21,6 +23,16 @@ import {
   products,
   type Product
 } from "@/lib/catalog";
+
+/* ————— Class filter (audience-aware) ————— */
+
+function classesForAudience(audience: string) {
+  if (audience === "Sportswear") return [];
+  if (audience === "All") return collections;
+  if (audience === "Shades")
+    return collections.filter((c) => c.key === "Metal" || c.key === "Coolers");
+  return collections.filter((c) => c.key !== "Coolers");
+}
 
 /* ————— Product card ————— */
 
@@ -212,7 +224,7 @@ export function Catalog({
         >
           All
         </Link>
-        {collections.map((c) => (
+        {classesForAudience(audience).map((c) => (
           <Link
             key={c.key}
             href={hrefForClass(c.key)}
@@ -280,10 +292,94 @@ export function Catalog({
 
 /* ————— Product detail ————— */
 
+function ImageGallery({ product }: { product: Product }) {
+  const images =
+    product.images && product.images.length > 0 ? product.images : [product.image];
+  const [index, setIndex] = useState(0);
+  const touchX = useRef<number | null>(null);
+
+  if (images.length === 0) return null;
+
+  const go = (dir: number) =>
+    setIndex((i) => (i + dir + images.length) % images.length);
+
+  return (
+    <div className="detail-art">
+      <div
+        className="gallery-stage"
+        onTouchStart={(e) => {
+          touchX.current = e.touches[0].clientX;
+        }}
+        onTouchEnd={(e) => {
+          if (touchX.current == null) return;
+          const dx = e.changedTouches[0].clientX - touchX.current;
+          if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+          touchX.current = null;
+        }}
+      >
+        <Image
+          src={images[index]}
+          alt={`${product.name}, ${product.colorName} — view ${index + 1} of ${
+            images.length
+          }`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          priority={index === 0}
+          className="detail-img"
+        />
+
+        {images.length > 1 && (
+          <>
+            <button
+              className="gallery-arrow gallery-arrow-left"
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={22} aria-hidden="true" />
+            </button>
+            <button
+              className="gallery-arrow gallery-arrow-right"
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next image"
+            >
+              <ChevronRight size={22} aria-hidden="true" />
+            </button>
+            <span className="gallery-counter" aria-hidden="true">
+              {index + 1} / {images.length}
+            </span>
+          </>
+        )}
+      </div>
+
+      {images.length > 1 && (
+        <div className="gallery-thumbs" role="tablist" aria-label="Frame views">
+          {images.map((img, i) => (
+            <button
+              key={img + i}
+              type="button"
+              className={i === index ? "thumb active" : "thumb"}
+              onClick={() => setIndex(i)}
+              aria-label={`View image ${i + 1}`}
+              aria-selected={i === index}
+              role="tab"
+            >
+              <Image src={img} alt="" fill sizes="80px" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ProductDetail({ product }: { product: Product }) {
   const { ready, session, cart, wishlist, toggleWishlist, addToCart } = useStore();
   const role = session?.role ?? null;
   const [quantity, setQuantity] = useState(getMOQ(role));
+  const [colorIdx, setColorIdx] = useState(0);
+  const selectedColor = product.colors?.[colorIdx]?.name ?? product.colorName;
 
   const price = getUnitPrice(product, role);
   const moq = getMOQ(role);
@@ -301,16 +397,7 @@ export function ProductDetail({ product }: { product: Product }) {
       </nav>
 
       <div className="detail-layout">
-        <div className="detail-art">
-          <Image
-            src={product.image}
-            alt={`${product.name}, ${product.colorName}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            priority
-            className="detail-img"
-          />
-        </div>
+        <ImageGallery product={product} />
 
         <div className="detail-copy">
           <p className="eyebrow">
@@ -328,10 +415,41 @@ export function ProductDetail({ product }: { product: Product }) {
 
           <p className="muted">{product.description}</p>
 
+          <div className="color-picker">
+            <p className="spec-label">
+              Colour{selectedColor ? `: ${selectedColor}` : ""}
+            </p>
+            <div className="color-swatches" role="radiogroup" aria-label="Frame colour">
+              {product.colors.map((c, i) => (
+                <button
+                  key={c.name + i}
+                  type="button"
+                  className={i === colorIdx ? "color-swatch active" : "color-swatch"}
+                  onClick={() => setColorIdx(i)}
+                  aria-pressed={i === colorIdx}
+                  title={c.name}
+                >
+                  <span
+                    className="swatch-chip"
+                    style={{ background: c.hex }}
+                    aria-hidden="true"
+                  />
+                  <span className="swatch-name">{c.name}</span>
+                </button>
+              ))}
+            </div>
+            <p className="fine-print">
+              Select a colour to preview. More colours can be added per frame.
+            </p>
+          </div>
+
           <dl className="spec-list">
-            <div><dt>Finish</dt><dd>{product.colorName}</dd></div>
-            <div><dt>Material</dt><dd>{product.material}</dd></div>
-            <div><dt>Lens · bridge · temple</dt><dd>{product.dimensions}</dd></div>
+            <div><dt>Model number</dt><dd>{product.modelNumber}</dd></div>
+            <div><dt>Gender</dt><dd>{product.gender}</dd></div>
+            <div><dt>Size · bridge · temple</dt><dd>{product.dimensions}</dd></div>
+            <div><dt>Shape</dt><dd>{product.shape}</dd></div>
+            <div><dt>Frame type</dt><dd>{product.frameType}</dd></div>
+            <div><dt>Frame material</dt><dd>{product.material}</dd></div>
             <div><dt>Availability</dt><dd>{product.stock} in demo stock</dd></div>
           </dl>
 

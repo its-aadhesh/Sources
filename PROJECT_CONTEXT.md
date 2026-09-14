@@ -111,8 +111,12 @@ with the hero text overlaid on the photo.
     `unisex 2, 3, 6, 7, 8`; identical copies in Children / Sports / Women
     sunglasses folders) — used for **Children**, **Sportswear**, and as
     placeholders for **Men** and **Shades**.
-- **B2B poster:** `poster.jpg` (from `Poster image for website .jpg`,
-  4896×3264 → 1600×1066), shown in the homepage "Buying for a store?" section.
+- **B2B poster:** `poster.jpg` (from `Buying for a store ex pic.jpg`,
+  4818×6023 → 900×1125 portrait), shown in the homepage "Buying for a store?"
+  section.
+- **Monogram:** `monogram-so.jpg` — a circular "SO" badge (espresso + brass)
+  generated with Pillow. Shown in the header (top-left) and footer; clicking it
+  goes home.
 
 Product cards, detail art, and cart art are now **square** (`aspect-ratio: 1 / 1`)
 to match the square sources.
@@ -132,30 +136,41 @@ to match the square sources.
 
 ### ✅ Built and working (this iteration)
 
-- **Shell:** fixed header (logo = home link → profile / wishlist / cart icons),
-  no sidebar, no "Shop collection" text. 5-column footer (Shop now / Account /
-  Milestones / About us / Help).
+- **Shell:** fixed header (monogram + wordmark = home link → profile / wishlist
+  / cart icons), no sidebar, no "Shop collection" text. 5-column footer
+  (Shop now / Account / **About Sri Opticals** / **Find us** / Help). "Find us"
+  lists Facebook, Instagram, Twitter, WhatsApp, each opening a placeholder
+  (`/social/[platform]`). Milestones now lives under "About Sri Opticals".
 - **Homepage:** **full-bleed photo hero** (`hero-bg.jpg` with the headline
-  overlaid on the photo — no 3D, no scroll animation, no floating spectacle),
-  **five** category cards (Men / Women / Children / **Shades** / **Sportswear**)
-  using uniform white-screened images, a **Bestsellers** row, and a
-  **"Buying for a store?"** closing band that now includes the **B2B poster
-  image** (`poster.jpg`). There is **no separate "Shop by class/material"
-  section** — classes live only as a filter inside `/shop`.
+  overlaid on the photo — no 3D, no scroll animation, no floating spectacle).
+  The background is positioned to keep the models toward the right (`object-position:
+  70% center`) so the left-aligned headline doesn't cover their faces, and the
+  type is a slightly dimmed warm white. On mobile the text drops to the bottom
+  so faces stay visible. **Five** category cards (Men / Women / Children /
+  **Shades** / **Sportswear**), a **Bestsellers** row, and a **"Buying for a
+  store?"** closing band with the **B2B poster image** (`poster.jpg`).
 - **`/account`:** Customer vs Business role cards + optional display-name form +
   signed-in panel (sign out). Choosing a role **auto-scrolls to the name form**
   and focuses its input (no manual scrolling).
 - **`/shop`:** audience tabs, search, sort, `collection` filter, **pricing mode
   banner** (retail vs wholesale), URL-state filters.
-- **Product detail:** image, price (retail vs wholesale + strikethrough
-  compare-at), specs, quantity stepper (steps by MOQ), add-to-cart, wishlist.
+- **Product detail:** **swipeable image gallery** (arrows + thumbnails on
+  desktop, touch-swipe on mobile, driven by each product's `images[]` array),
+  price (retail vs wholesale + strikethrough compare-at), a **colour selector**
+  (from `colors[]`), full specs (**model number, gender, size · bridge ·
+  temple, shape, frame type, frame material**), quantity stepper (steps by MOQ),
+  add-to-cart, wishlist.
 - **Cart & wishlist:** local persistence (`localStorage` key
   `sri-opticals:commerce:v2`), separate customer/business carts, MOQ + stock
   enforcement, shipping rule (₹99 under ₹3,000, free from ₹3,000).
 - **31-product catalog** across **5 categories** (Men / Women / Children / Shades
-  / Sportswear) and **5 classes** (Premium ULTEM / Unbreakable / Fiber / Metal /
-  Coolers). Classes are a sub-filter inside each category, not a standalone
-  section.
+  / Sportswear). Classes are an **audience-aware sub-filter** inside `/shop`:
+  - **Men / Women / Children** → Ultem Frames · HMA Frames · Shell Frames · Metal Frames
+  - **Shades** → Metal Frames · Punk Glasses (the old "Coolers")
+  - **Sportswear** → no class filter (just "All"; sportswear products have
+    `collection: null`)
+  - **All** → shows all five classes.
+  Classes are not a standalone homepage section.
 - **Placeholder pages:** `/about` (basic), `/milestones`, `/contact`, `/faqs`
   (all "coming soon"), and a `not-found` page.
 
@@ -185,6 +200,7 @@ app/
   cart/page.tsx
   wishlist/page.tsx
   about | milestones | contact | faqs/page.tsx
+  social/[platform]/page.tsx   placeholder pages for Facebook/Instagram/Twitter/WhatsApp
   not-found.tsx
 components/
   shell.tsx             Header + Footer + Feedback (toast/storage notice)
@@ -196,7 +212,7 @@ components/
 lib/
   catalog.ts            products (31), pricing, MOQ, shipping, collections
 public/
-  images/               hero-bg.jpg + poster.jpg + cat-*.jpg + 10 square product photos
+  images/               hero-bg.jpg + poster.jpg + monogram-so.jpg + cat-*.jpg + 10 square product photos
 ```
 
 Also at repo root: `upload_image.md` — step-by-step guide for the user to add or
@@ -237,9 +253,10 @@ Requires **Node 20.9+**. The build currently passes cleanly (43 routes).
    account/payment/order exists.
 4. **Assets must stay optimized** — do not drop the raw multi-MB images into
    `public/`; normalize + compress them.
-5. **Five top categories** (Men/Women/Children/Shades/Sportswear); classes
-   (ULTEM/Unbreakable/Fiber/Metal/Coolers) are a **sub-filter inside** categories,
-   not a standalone homepage section.
+5. **Five top categories** (Men/Women/Children/Shades/Sportswear); classes are a
+   **sub-filter inside** `/shop` (audience-aware: see §5), not a standalone
+   homepage section. New class labels: Ultem Frames / HMA Frames / Shell Frames /
+   Metal Frames / Punk Glasses.
 6. **Commit on branch `arena/01a09cbf-sources`** and push only to that branch.
 
 > **Note:** `main` on GitHub contains the raw source images (large PNGs). This

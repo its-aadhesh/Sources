@@ -52,7 +52,8 @@ public/images/product-unisex-2.jpg
 ## 2. Tell the catalog to use it
 
 Open `lib/catalog.ts` and find the product you want to change. Each product has
-an `image:` line, like this:
+an `image:` line **and** an `images:` line (an array used for the swipe
+gallery), like this:
 
 ```ts
 {
@@ -60,7 +61,13 @@ an `image:` line, like this:
   slug: "matte-black-bold",
   name: "Matte Black Bold",
   ...
-  image: "/images/product-women-1.jpg",   // <-- change this
+  image: "/images/product-women-1.jpg",       // main image (card + fallback)
+  modelNumber: "SO-006",
+  gender: "Women",
+  shape: "Square",
+  frameType: "Full rim",
+  colors: [{ name: "Matte black", hex: "#1a1a1a" }],
+  images: ["/images/product-women-1.jpg"],   // swipe gallery (can hold many)
   ...
 },
 ```
@@ -70,13 +77,64 @@ with `/images/`:
 
 ```ts
   image: "/images/my-new-photo.jpg",
+  images: ["/images/my-new-photo.jpg"],
 ```
 
 That's it. Save the file.
 
 ---
 
-## 3. Check it in the browser
+## 3. Add multiple angles (swipe gallery)
+
+The product page lets visitors **swipe between multiple images** of the same
+frame. To add more than one angle:
+
+1. Put each angle in `public/images/` (e.g. `my-frame-front.jpg`,
+   `my-frame-side.jpg`, `my-frame-tilt.jpg`).
+2. List them all in the product's `images:` array, in order:
+
+```ts
+  images: [
+    "/images/my-frame-front.jpg",
+    "/images/my-frame-side.jpg",
+    "/images/my-frame-tilt.jpg"
+  ],
+```
+
+The first image is shown by default; visitors can swipe (on phone) or use the
+arrow buttons + thumbnails (on desktop) to move between them.
+
+## 4. Add / edit colours
+
+Each product has a `colors:` list used by the colour selector on the product
+page. Each entry needs a **name** and a **hex** colour (used for the swatch):
+
+```ts
+  colors: [
+    { name: "Matte black", hex: "#1a1a1a" },
+    { name: "Deep navy", hex: "#1f3a5f" },
+    { name: "Tortoise", hex: "#8a5a2b" }
+  ],
+```
+
+Add as many as you like (the selector works for one colour or ten). The hex is
+only for the little swatch circle — pick any matching colour code.
+
+## 5. Edit the other product details
+
+While you're in `lib/catalog.ts`, you can also update the spec fields shown on
+the product page:
+
+| Field | Example | What it is |
+| --- | --- | --- |
+| `modelNumber` | `"SO-001"` | Model / SKU number |
+| `gender` | `"Men"` / `"Women"` / `"Kids"` / `"Unisex"` | Who it's for |
+| `dimensions` | `"51 · 20 · 145 mm"` | Size · bridge · temple |
+| `shape` | `"Rectangle"` / `"Round"` / `"Aviator"` … | Frame shape |
+| `frameType` | `"Full rim"` / `"Rimless"` / `"Sports wrap"` | Frame construction |
+| `material` | `"Acetate"` / `"Metal"` / `"Premium ULTEM"` … | Frame material |
+
+## 6. Check it in the browser
 
 1. If the site isn't running, start it:
    ```bash
@@ -93,18 +151,21 @@ That's it. Save the file.
 
 ---
 
-## 4. Quick reference
+## 7. Quick reference
 
 | To change… | Do this |
 | --- | --- |
-| A **product photo** | Drop file in `public/images/` → edit its `image:` line in `lib/catalog.ts` |
+| A **product photo** | Drop file in `public/images/` → edit its `image:` + `images:` lines in `lib/catalog.ts` |
+| **Multiple angles** (swipe) | List them in the product's `images: [...]` array |
+| **Colour options** | Edit the product's `colors: [{ name, hex }]` array |
 | The **hero** background | Replace `public/images/hero-bg.jpg` (keep the same filename) |
 | A **category card** | Replace `public/images/cat-men.jpg` (or `cat-women`, `cat-children`, `cat-shades`, `cat-sportswear`) |
 | The **B2B poster** | Replace `public/images/poster.jpg` |
+| The **monogram** (logo) | Replace `public/images/monogram-so.jpg` |
 
 ---
 
-## 5. Troubleshooting
+## 8. Troubleshooting
 
 - **Image doesn't appear / broken icon** — check the path matches the filename
   exactly (case matters), and that the file is really inside `public/images/`.
@@ -116,13 +177,15 @@ That's it. Save the file.
 
 ---
 
-## 6. The current placeholder situation
+## 9. The current placeholder situation
 
 As of the latest pass, every product uses one of **10 uniform square images**
-(`product-women-1..5.jpg` and `product-unisex-1..5.jpg`) as **placeholders**.
-They are real product photos but were reused across multiple products because a
-full 1-per-product set isn't available yet.
+(`product-women-1..5.jpg` and `product-unisex-1..5.jpg`) as **placeholders**,
+with a single entry in each `images:` array (so the swipe gallery shows one
+photo until you add more). They are real product photos but were reused across
+multiple products because a full 1-per-product set isn't available yet.
 
 Use the steps above to replace each placeholder with the correct, unique photo
-for that product. Start with the ones most visible on the homepage
-(**Bestsellers**) and the shop page.
+for that product, and add extra angles to `images:` to enable the swipe
+gallery. Start with the ones most visible on the homepage (**Bestsellers**) and
+the shop page.
