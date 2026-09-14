@@ -4,7 +4,20 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="hero-static" aria-label="Sri Opticals signature eyewear">
+    <section className="hero-static" aria-label="Sri Opticals hero">
+      {/* Full-bleed hero image — text sits on top of it */}
+      <Image
+        src="/images/hero-bg.jpg"
+        alt="Sri Opticals signature eyewear"
+        fill
+        priority
+        sizes="100vw"
+        className="hero-static-bg"
+      />
+
+      {/* Scrim for legibility */}
+      <div className="hero-static-scrim" aria-hidden="true" />
+
       <div className="hero-static-inner">
         <p className="hero-eyebrow">SRI OPTICALS</p>
         <h1 className="hero-static-title">
@@ -25,17 +38,6 @@ export default function Hero() {
             Business buying <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
         </div>
-      </div>
-
-      <div className="hero-static-art">
-        <Image
-          src="/images/hero.jpg"
-          alt="Sri Opticals signature spectacle frame"
-          fill
-          priority
-          sizes="(max-width: 900px) 100vw, 60vw"
-          className="hero-static-img"
-        />
       </div>
     </section>
   );

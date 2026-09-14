@@ -66,9 +66,11 @@ Defined in `app/globals.css` under `:root`:
 | `--dark` | `#1C140C` | Espresso footer / hero background |
 | `--dark-2` | `#2A1F12` | Gradient mid-tone |
 
-The hero and closing band use an **espresso gradient** (`#2A1F12 → #1C140C`) with
-white type and brass eyebrow text; the white-screened hero spectacles pop against
-it. The **footer is dark espresso** with brass column headings.
+The hero uses a **full-bleed photograph** (`hero-bg.jpg`) with the headline text
+overlaid directly on the photo (a subtle espresso scrim keeps it legible), in
+white type with a brass eyebrow. The closing band uses an **espresso gradient**
+(`#2A1F12 → #1C140C`) with white type and a brass eyebrow. The **footer is dark
+espresso** with brass column headings.
 
 **This is the third theme.** History: (1) sage/beige — rejected, (2) pearl/oxblood
 — rejected, (3) bold blue — rejected. **Ivory & Espresso & Brass is current. Do
@@ -91,24 +93,38 @@ React Three Fiber / any `.glb` rendering.** `three`, `@react-three/fiber`,
 `@react-three/drei`, `@types/three`, and `framer-motion` have all been removed
 from `package.json`.
 
-The hero is now a **static image**: `public/images/hero.jpg` (the user-supplied
-HD white-screened "Hero Page Spectacle.jpg").
+The hero is now a **full-bleed static image**: `public/images/hero-bg.jpg` (the
+user-supplied `HeroPage on which main text sits .jpg`, 6000×4000 → 1920×1280),
+with the hero text overlaid on the photo.
 
 ### Product images — `public/images/`
 
-- **Hero:** `hero.jpg` (from `Hero Page Spectacle.jpg`, 4794×4000 → 1600 wide).
+- **Hero:** `hero-bg.jpg` (from `HeroPage on which main text sits .jpg`).
 - **Category cards:** `cat-men.jpg`, `cat-women.jpg`, `cat-children.jpg`,
-  `cat-shades.jpg`, `cat-sportswear.jpg` — the 6 new HD **white-screened** images
-  the user added to `main` (`Men.jpg`, `Women.jpg`, `Children.jpg`, `Shades.jpg`,
-  `Sportswear.jpg`), all normalized to a uniform **4:5 portrait (900×1125)** for
-  consistency.
-- **Product listings:** 31 optimized photos from `men power glasses 2/` (see
-  `lib/catalog.ts` → each product's `image`). Resized from ~5 MB to ≤1600 px wide.
+  `cat-shades.jpg`, `cat-sportswear.jpg` — the HD **white-screened** images the
+  user added to `main`, normalized to a uniform **4:5 portrait (900×1125)**.
+- **Product listings:** 10 uniform **square (1:1)** images, used as placeholders
+  across all 31 products:
+  - `product-women-1..5.jpg` (from `men power glasses 2/women power glasses/` →
+    `women 1, 2, 4, 6, 7`) — used for the **Women** category.
+  - `product-unisex-1..5.jpg` (from `men power glasses 2/men sunglasses/` →
+    `unisex 2, 3, 6, 7, 8`; identical copies in Children / Sports / Women
+    sunglasses folders) — used for **Children**, **Sportswear**, and as
+    placeholders for **Men** and **Shades**.
+- **B2B poster:** `poster.jpg` (from `Poster image for website .jpg`,
+  4896×3264 → 1600×1066), shown in the homepage "Buying for a store?" section.
+
+Product cards, detail art, and cart art are now **square** (`aspect-ratio: 1 / 1`)
+to match the square sources.
 
 > ⚠️ **Caveat for the next AI:** this environment has no vision, so image→product
-> matching relies on folder structure + filenames. **Visually verify each card
-> image matches its product name before shipping.** Raw sources remain untouched at
-> `men power glasses 2/` on `main`.
+> matching relies on folder structure + filenames. **The current product images
+> are placeholders** — the 10 unique square photos were reused across the catalog
+> because `men power glasses 2/` does not contain a unique photo for every product
+> (there is no men's-eyeglasses set, and only 5 shared images for the 13
+> sunglasses). See [`upload_image.md`](./upload_image.md) for how to swap in the
+> final per-product photos. Raw sources remain untouched at `men power glasses 2/`
+> on `main`.
 
 ---
 
@@ -119,11 +135,13 @@ HD white-screened "Hero Page Spectacle.jpg").
 - **Shell:** fixed header (logo = home link → profile / wishlist / cart icons),
   no sidebar, no "Shop collection" text. 5-column footer (Shop now / Account /
   Milestones / About us / Help).
-- **Homepage:** **static image hero** (`hero.jpg`, centered on an espresso
-  gradient — no 3D, no scroll animation), **five** category cards (Men / Women /
-  Children / **Shades** / **Sportswear**) using uniform white-screened images,
-  a **Bestsellers** row, and a business teaser. There is **no separate "Shop by
-  class/material" section** — classes live only as a filter inside `/shop`.
+- **Homepage:** **full-bleed photo hero** (`hero-bg.jpg` with the headline
+  overlaid on the photo — no 3D, no scroll animation, no floating spectacle),
+  **five** category cards (Men / Women / Children / **Shades** / **Sportswear**)
+  using uniform white-screened images, a **Bestsellers** row, and a
+  **"Buying for a store?"** closing band that now includes the **B2B poster
+  image** (`poster.jpg`). There is **no separate "Shop by class/material"
+  section** — classes live only as a filter inside `/shop`.
 - **`/account`:** Customer vs Business role cards + optional display-name form +
   signed-in panel (sign out). Choosing a role **auto-scrolls to the name form**
   and focuses its input (no manual scrolling).
@@ -174,12 +192,15 @@ components/
   commerce.tsx          ProductCard, Catalog, ProductDetail, CartView, WishlistView
   account.tsx           role cards + session panel (auto-scrolls to form)
   placeholder.tsx       "coming soon" screen
-  hero.tsx              static image hero (no 3D, no animation)
+  hero.tsx              full-bleed photo hero (text overlaid, no 3D, no animation)
 lib/
   catalog.ts            products (31), pricing, MOQ, shipping, collections
 public/
-  images/               hero.jpg + cat-*.jpg + optimized product photos
+  images/               hero-bg.jpg + poster.jpg + cat-*.jpg + 10 square product photos
 ```
+
+Also at repo root: `upload_image.md` — step-by-step guide for the user to add or
+replace product images.
 
 ### Key rules encoded in `lib/catalog.ts`
 
@@ -209,7 +230,8 @@ Requires **Node 20.9+**. The build currently passes cleanly (43 routes).
 1. **Do not reintroduce** the rejected direction: no sage/beige, pearl/oxblood, or
    blue palette (use the current Ivory/Espresso/Brass); no sidebar; no
    five-chapter slogans; no "Shop collection" text in the header; **and no 3D
-   rendering at all** (no `.glb`, no three.js — the hero is a static image).
+   rendering at all** (no `.glb`, no three.js — the hero is a full-bleed photo
+   with overlaid text).
 2. **Keep prices in paise**, role-aware. Never hardcode retail prices into UI.
 3. **Keep the demo honest** — every account/checkout surface must say no real
    account/payment/order exists.

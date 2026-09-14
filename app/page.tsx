@@ -72,16 +72,24 @@ export default function HomePage() {
 
       {/* ————— Closing ————— */}
       <section className="closing">
-        <div>
+        <div className="closing-copy">
           <h2>Buying for a store?</h2>
           <p className="muted">
             Browse the same range with wholesale pricing and a 20-unit minimum per
             frame.
           </p>
+          <Link href="/account" className="button button-hero">
+            Business account <ArrowUpRight size={17} aria-hidden="true" />
+          </Link>
         </div>
-        <Link href="/account" className="button button-hero">
-          Business account <ArrowUpRight size={17} aria-hidden="true" />
-        </Link>
+        <div className="closing-poster">
+          <Image
+            src="/images/poster.jpg"
+            alt="Sri Opticals wholesale and business range"
+            fill
+            sizes="(max-width: 900px) 100vw, 50vw"
+          />
+        </div>
       </section>
     </>
   );

@@ -4,6 +4,21 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 
 ---
 
+## Latest iteration (hero photo + uniform square product images)
+
+| # | Task | Status |
+| --- | --- | --- |
+| 29 | Remove the floating "plain glass" hero graphic | ✅ |
+| 30 | Hero = full-bleed `HeroPage on which main text sits .jpg` with text overlaid on the photo | ✅ |
+| 31 | Pull `men power glasses 2/` + poster + hero from `main`, dedupe unisex images (10 unique) | ✅ |
+| 32 | Optimize + wire **square (1:1)** product images (placeholders across all 31 products) | ✅ |
+| 33 | Add `poster.jpg` to the homepage "Buying for a store?" (B2B) section | ✅ |
+| 34 | Write `upload_image.md` — step-by-step image-adding guide | ✅ |
+| 35 | Update `PROJECT_CONTEXT.md` + `TICKET.md`; add Future Implementation List | ✅ |
+| 36 | ⚠️ Visually verify hero overlay legibility + placeholder images in a real browser | ⚠️ |
+
+---
+
 ## Current iteration (correction pass)
 
 | # | Task | Status |
@@ -82,6 +97,28 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 - [ ] Empty / loading / error states for all async-looking paths.
 - [ ] Tests (Vitest + RTL; money arithmetic, MOQ, cart merge, filters).
 - [ ] README with run/demo/reset/limitations notes.
+
+---
+
+## Future Implementation List
+
+What the user has asked to build *later* (in rough priority order):
+
+1. **Final per-product photos** — replace the 10 placeholder square images with a
+   unique, correct photo for each of the 31 products (user will do this using
+   `upload_image.md`; needs proper aspect ratio + uniform backgrounds).
+2. **Mock checkout + order confirmation** — `/checkout` (delivery demo → review →
+   place demo order) and `/order-confirmation/[id]`, with idempotency, stock
+   decrement, cart clear, and a checkout CTA replacing the current "coming soon"
+   notice.
+3. **About Us content** — the user will supply the direction; rewrite
+   `app/about/page.tsx` (no invented history/certifications).
+4. **Commerce fidelity** — color variants / SKUs, lens options, low-stock and
+   out-of-stock states, purchase limits, a few valid discounts, seeded reviews
+   with a review-list UI on the detail page.
+5. **Content pages** — real `/milestones`, `/contact`, and `/faqs` content.
+6. **Polish & verification** — keyboard/focus pass, `prefers-reduced-motion`
+   alternative, empty/loading/error states, tests (Vitest + RTL), and a README.
 
 ---
 

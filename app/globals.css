@@ -268,25 +268,40 @@ main { padding-top: var(--header-height); }
 .empty-state p { max-width: 480px; margin: 16px auto 26px; }
 .empty-mark { display: block; font-size: 50px; color: var(--accent); margin-bottom: 20px; letter-spacing: -0.1em; }
 
-/* ————— Hero ————— */
+/* ————— Hero (full-bleed image + overlapping text) ————— */
 
 .hero-static {
   position: relative;
   min-height: calc(100svh - var(--header-height));
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 100%, rgba(161, 118, 58, 0.18) 0%, transparent 55%),
-    linear-gradient(180deg, var(--dark-2) 0%, var(--dark) 100%);
+  background: var(--dark);
   color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.hero-static-bg {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.hero-static-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(28, 20, 12, 0.5) 0%, rgba(28, 20, 12, 0.12) 45%, rgba(28, 20, 12, 0.55) 100%),
+    linear-gradient(90deg, rgba(28, 20, 12, 0.55) 0%, rgba(28, 20, 12, 0) 65%);
 }
 
 .hero-static-inner {
   position: relative;
   z-index: 2;
-  max-width: 860px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 9vh var(--page-gutter) 4vh;
+  max-width: 760px;
+  margin-left: var(--page-gutter);
+  text-align: left;
+  padding: 8vh 0;
 }
 
 .hero-eyebrow {
@@ -294,33 +309,35 @@ main { padding-top: var(--header-height); }
   letter-spacing: 0.3em;
   font-weight: 700;
   text-transform: uppercase;
-  color: #d9b98a;
-  margin-bottom: 20px;
+  color: #e5c69a;
+  margin-bottom: 18px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
 .hero-static-title {
-  font-size: clamp(46px, 7vw, 112px);
+  font-size: clamp(48px, 7.5vw, 118px);
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 0.98;
+  line-height: 0.97;
   color: #fff;
   text-wrap: balance;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
 }
 
 .hero-static-sub {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 17px;
-  max-width: 480px;
-  margin: 22px auto 0;
+  max-width: 500px;
+  margin-top: 24px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .hero-static-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 22px;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .hero-static-link {
@@ -332,18 +349,9 @@ main { padding-top: var(--header-height); }
   font-weight: 700;
   min-height: 48px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
-.hero-static-link:hover { border-color: #d9b98a; color: #d9b98a; }
-
-.hero-static-art {
-  position: relative;
-  z-index: 1;
-  max-width: 760px;
-  margin: 0 auto;
-  aspect-ratio: 6 / 5;
-  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.45));
-}
-.hero-static-img { object-fit: contain; }
+.hero-static-link:hover { border-color: #e5c69a; color: #e5c69a; }
 
 /* ————— Home: categories ————— */
 
@@ -393,13 +401,31 @@ main { padding-top: var(--header-height); }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  gap: 48px;
   padding: 80px var(--page-gutter);
   background: linear-gradient(160deg, var(--dark-2), var(--dark));
   color: #fff;
 }
 .closing h2 { font-size: clamp(30px, 3.6vw, 46px); }
 .closing .muted { color: rgba(255, 255, 255, 0.72); margin-top: 8px; }
+.closing-copy {
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+.closing-copy .button { margin-top: 6px; }
+.closing-poster {
+  position: relative;
+  flex: 0 0 min(46%, 640px);
+  aspect-ratio: 3 / 2;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.closing-poster img { object-fit: cover; }
 
 /* ————— Catalog ————— */
 
@@ -494,7 +520,7 @@ input, select {
 
 .product-art {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   border-radius: 16px;
   overflow: hidden;
   background: var(--surface);
@@ -544,7 +570,7 @@ input, select {
 .detail-art {
   position: sticky;
   top: calc(var(--header-height) + 28px);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   border-radius: 20px;
   overflow: hidden;
   background: var(--surface);
@@ -584,7 +610,7 @@ input, select {
 .cart-layout { display: grid; grid-template-columns: 1.5fr 1fr; align-items: start; gap: 52px; }
 .cart-line { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--line); }
 .cart-line:first-child { padding-top: 0; }
-.cart-art { position: relative; width: 150px; flex-shrink: 0; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+.cart-art { position: relative; width: 150px; flex-shrink: 0; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
 .cart-img { object-fit: cover; }
 .cart-line-copy { flex: 1; min-width: 0; }
 .cart-line h2 { font-size: 20px; letter-spacing: -0.02em; }
@@ -735,7 +761,9 @@ input, select {
   .wordmark { font-size: 18px; }
   .hero-static-title { font-size: 40px; }
   .hero-static-sub { font-size: 15px; }
-  .hero-static-art { max-width: 100%; }
+  .hero-static-inner { margin-left: 0; padding: 10vh var(--page-gutter); text-align: center; }
+  .hero-static-sub { margin-left: auto; margin-right: auto; }
+  .hero-static-actions { justify-content: center; }
   .category-grid, .category-grid-5 { grid-template-columns: repeat(2, 1fr); }
   .category-card { min-height: 220px; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
@@ -748,7 +776,8 @@ input, select {
   .name-form { grid-column: auto; }
   .principle-grid { grid-template-columns: 1fr; gap: 28px; }
   .about-bottom { flex-direction: column; }
-  .closing { flex-direction: column; align-items: flex-start; }
+  .closing { flex-direction: column; align-items: stretch; }
+  .closing-poster { flex: none; width: 100%; aspect-ratio: 4 / 3; }
   .catalog-controls { grid-template-columns: 1fr; }
   .search-field { grid-column: auto; }
   .cart-art { width: 100px; }
