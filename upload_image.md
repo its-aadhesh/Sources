@@ -120,6 +120,13 @@ page. Each entry needs a **name** and a **hex** colour (used for the swatch):
 Add as many as you like (the selector works for one colour or ten). The hex is
 only for the little swatch circle — pick any matching colour code.
 
+> **Colour ↔ photo link:** each swatch in `colors:` is matched, position for
+> position, with an entry in the same product's `images:` array. Clicking a
+> colour shows the photo at that same index. So when you add a new colour, add a
+> matching image to `images:` at the same spot, and clicking that swatch will
+> load the right photo. Every product currently ships with **10 colours + 10
+> images** as placeholders.
+
 ## 5. Edit the other product details
 
 While you're in `lib/catalog.ts`, you can also update the spec fields shown on
@@ -160,8 +167,7 @@ the product page:
 | **Colour options** | Edit the product's `colors: [{ name, hex }]` array |
 | The **hero** background | Replace `public/images/hero-bg.jpg` (keep the same filename) |
 | A **category card** | Replace `public/images/cat-men.jpg` (or `cat-women`, `cat-children`, `cat-shades`, `cat-sportswear`) |
-| The **B2B poster** | Replace `public/images/poster.jpg` |
-| The **monogram** (logo) | Replace `public/images/monogram-so.jpg` |
+| The **monogram** (logo) | Replace `public/images/monogram-so.png` (header) / `monogram-so-light.png` (footer) |
 
 ---
 

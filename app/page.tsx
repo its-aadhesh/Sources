@@ -15,6 +15,7 @@ const audiences = [
 
 export default function HomePage() {
   const featured = products.filter((p) => p.featured).slice(0, 4);
+  const recent = products.filter((p) => p.recent).slice(0, 8);
 
   return (
     <>
@@ -70,26 +71,18 @@ export default function HomePage() {
         <ProductGrid items={featured} />
       </section>
 
-      {/* ————— Closing ————— */}
-      <section className="closing">
-        <div className="closing-copy">
-          <h2>Buying for a store?</h2>
-          <p className="muted">
-            Browse the same range with wholesale pricing and a 20-unit minimum per
-            frame.
-          </p>
-          <Link href="/account" className="button button-hero">
-            Business account <ArrowUpRight size={17} aria-hidden="true" />
+      {/* ————— Recently launched ————— */}
+      <section className="featured-section">
+        <div className="section-heading compact">
+          <div>
+            <p className="eyebrow">NEW IN</p>
+            <h2>Recently launched.</h2>
+          </div>
+          <Link href="/shop" className="text-link">
+            All frames <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
         </div>
-        <div className="closing-poster">
-          <Image
-            src="/images/poster.jpg"
-            alt="Sri Opticals wholesale and business range"
-            fill
-            sizes="(max-width: 900px) 100vw, 50vw"
-          />
-        </div>
+        <ProductGrid items={recent} />
       </section>
     </>
   );

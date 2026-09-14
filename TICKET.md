@@ -4,6 +4,20 @@ Status legend: ✅ done · 🔵 in progress · ⬜ todo · ⚠️ needs visual/h
 
 ---
 
+## Latest iteration (recently launched + 10 colour swatches)
+
+| # | Task | Status |
+| --- | --- | --- |
+| 47 | Replace "Buying for a store?" band + poster with a **Recently launched** frames row | ✅ |
+| 48 | Remove the B2B link + poster image (`poster.jpg` deleted) | ✅ |
+| 49 | Add 10 colour swatches per product; clicking a swatch reloads a different photo | ✅ |
+| 50 | Unify colour selector + gallery (colour index ↔ image index) | ✅ |
+| 51 | Add `recent` flag to 8 products for the "Recently launched" row | ✅ |
+| 52 | Update `PROJECT_CONTEXT.md`, `TICKET.md`, `upload_image.md` | ✅ |
+| 53 | ⚠️ Visually verify 10-colour swatches + "Recently launched" row in a real browser | ⚠️ |
+
+---
+
 ## Latest iteration (footer, hero, classes, specs, monogram)
 
 | # | Task | Status |

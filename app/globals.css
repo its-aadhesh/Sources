@@ -405,36 +405,6 @@ main { padding-top: var(--header-height); }
 
 .featured-section { padding: 20px var(--page-gutter) 100px; }
 
-.closing {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 48px;
-  padding: 80px var(--page-gutter);
-  background: linear-gradient(160deg, var(--dark-2), var(--dark));
-  color: #fff;
-}
-.closing h2 { font-size: clamp(30px, 3.6vw, 46px); }
-.closing .muted { color: rgba(255, 255, 255, 0.72); margin-top: 8px; }
-.closing-copy {
-  max-width: 460px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 22px;
-}
-.closing-copy .button { margin-top: 6px; }
-.closing-poster {
-  position: relative;
-  flex: 0 0 min(30%, 380px);
-  aspect-ratio: 4 / 5;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-}
-.closing-poster img { object-fit: cover; }
-
 /* ————— Catalog ————— */
 
 .mode-banner {
@@ -873,8 +843,6 @@ input, select {
   .name-form { grid-column: auto; }
   .principle-grid { grid-template-columns: 1fr; gap: 28px; }
   .about-bottom { flex-direction: column; }
-  .closing { flex-direction: column; align-items: stretch; }
-  .closing-poster { flex: none; width: 100%; aspect-ratio: 4 / 5; }
   .catalog-controls { grid-template-columns: 1fr; }
   .search-field { grid-column: auto; }
   .cart-art { width: 100px; }

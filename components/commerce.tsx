@@ -292,16 +292,24 @@ export function Catalog({
 
 /* ————— Product detail ————— */
 
-function ImageGallery({ product }: { product: Product }) {
+function ImageGallery({
+  product,
+  index,
+  onChange
+}: {
+  product: Product;
+  index: number;
+  onChange: (i: number) => void;
+}) {
   const images =
     product.images && product.images.length > 0 ? product.images : [product.image];
-  const [index, setIndex] = useState(0);
   const touchX = useRef<number | null>(null);
 
   if (images.length === 0) return null;
 
+  const current = Math.min(index, images.length - 1);
   const go = (dir: number) =>
-    setIndex((i) => (i + dir + images.length) % images.length);
+    onChange((current + dir + images.length) % images.length);
 
   return (
     <div className="detail-art">
@@ -318,13 +326,11 @@ function ImageGallery({ product }: { product: Product }) {
         }}
       >
         <Image
-          src={images[index]}
-          alt={`${product.name}, ${product.colorName} — view ${index + 1} of ${
-            images.length
-          }`}
+          src={images[current]}
+          alt={`${product.name} — view ${current + 1} of ${images.length}`}
           fill
           sizes="(max-width: 1024px) 100vw, 60vw"
-          priority={index === 0}
+          priority={current === 0}
           className="detail-img"
         />
 
@@ -347,7 +353,7 @@ function ImageGallery({ product }: { product: Product }) {
               <ChevronRight size={22} aria-hidden="true" />
             </button>
             <span className="gallery-counter" aria-hidden="true">
-              {index + 1} / {images.length}
+              {current + 1} / {images.length}
             </span>
           </>
         )}
@@ -359,10 +365,10 @@ function ImageGallery({ product }: { product: Product }) {
             <button
               key={img + i}
               type="button"
-              className={i === index ? "thumb active" : "thumb"}
-              onClick={() => setIndex(i)}
+              className={i === current ? "thumb active" : "thumb"}
+              onClick={() => onChange(i)}
               aria-label={`View image ${i + 1}`}
-              aria-selected={i === index}
+              aria-selected={i === current}
               role="tab"
             >
               <Image src={img} alt="" fill sizes="80px" />
@@ -378,8 +384,8 @@ export function ProductDetail({ product }: { product: Product }) {
   const { ready, session, cart, wishlist, toggleWishlist, addToCart } = useStore();
   const role = session?.role ?? null;
   const [quantity, setQuantity] = useState(getMOQ(role));
-  const [colorIdx, setColorIdx] = useState(0);
-  const selectedColor = product.colors?.[colorIdx]?.name ?? product.colorName;
+  const [selected, setSelected] = useState(0);
+  const selectedColor = product.colors?.[selected]?.name ?? product.colorName;
 
   const price = getUnitPrice(product, role);
   const moq = getMOQ(role);
@@ -397,7 +403,7 @@ export function ProductDetail({ product }: { product: Product }) {
       </nav>
 
       <div className="detail-layout">
-        <ImageGallery product={product} />
+        <ImageGallery product={product} index={selected} onChange={setSelected} />
 
         <div className="detail-copy">
           <p className="eyebrow">
@@ -424,9 +430,9 @@ export function ProductDetail({ product }: { product: Product }) {
                 <button
                   key={c.name + i}
                   type="button"
-                  className={i === colorIdx ? "color-swatch active" : "color-swatch"}
-                  onClick={() => setColorIdx(i)}
-                  aria-pressed={i === colorIdx}
+                  className={i === selected ? "color-swatch active" : "color-swatch"}
+                  onClick={() => setSelected(i)}
+                  aria-pressed={i === selected}
                   title={c.name}
                 >
                   <span
@@ -439,7 +445,7 @@ export function ProductDetail({ product }: { product: Product }) {
               ))}
             </div>
             <p className="fine-print">
-              Select a colour to preview. More colours can be added per frame.
+              Select a colour to preview the frame in a different finish.
             </p>
           </div>
 
