@@ -19,10 +19,10 @@ export function Header() {
       <header className="site-header">
         <Link href="/" className="brand" aria-label="Sri Opticals home">
           <Image
-            src="/images/monogram-so.jpg"
+            src="/images/monogram-so.png"
             alt=""
-            width={44}
-            height={44}
+            width={54}
+            height={54}
             className="monogram"
           />
           <span className="wordmark">
@@ -112,10 +112,10 @@ export function Footer() {
         <div className="footer-brand">
           <Link href="/" className="footer-wordmark" aria-label="Sri Opticals home">
             <Image
-              src="/images/monogram-so.jpg"
+              src="/images/monogram-so-light.png"
               alt=""
-              width={34}
-              height={34}
+              width={40}
+              height={40}
               className="monogram"
             />
             <span>
